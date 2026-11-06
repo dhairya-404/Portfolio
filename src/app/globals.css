@@ -18,23 +18,24 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0d0d11;
-  --ink: #0d0d11;
-  --paper: #ffffff;
-  --muted: #71717a;
-  --muted-light: #a1a1aa;
-  --subtle-bg: #f7f7f8;
-  --card-bg: #ffffff;
-  --border: #e8e8ed;
-  --border-subtle: #f0f0f4;
-  --pill-bg: rgba(0, 0, 0, 0.04);
-  --pill-hover: rgba(0, 0, 0, 0.08);
-  --accent-blue: #0070f3;
-  --accent-emerald: #10b981;
-  --radius-card: 20px;
+  --background: #070709;
+  --foreground: #ffffff;
+  --ink: #ffffff;
+  --paper: #070709;
+  --muted: #a1a1aa;
+  --muted-dark: #52525b;
+  --card-bg: rgba(18, 18, 24, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover-border: rgba(255, 255, 255, 0.22);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --neon-purple: #c084fc;
+  --neon-purple-glow: rgba(168, 85, 247, 0.45);
+  --neon-teal: #2dd4bf;
+  --neon-teal-glow: rgba(45, 212, 191, 0.45);
+  --radius-card: 22px;
   --radius-pill: 9999px;
-  --page-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --page-gutter: clamp(1.25rem, 5vw, 4rem);
   --max-content: 1360px;
 }
 
@@ -44,15 +45,17 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  body {
     background-color: var(--background);
     color: var(--foreground);
+  }
+  body {
+    background-color: #070709;
+    color: #ffffff;
     font-family: var(--font-sans);
     overflow-x: hidden;
   }
   ::selection {
-    background-color: #111117;
+    background-color: rgba(168, 85, 247, 0.4);
     color: #ffffff;
   }
 }
@@ -63,46 +66,56 @@
   font-weight: 400;
 }
 
-/* Glass floating dock */
-.nav-pill {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+/* Background Dot Matrix (Thenn Signature) */
+.bg-dot-matrix {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
 }
 
-/* Card lift interaction */
-.card-lift {
+/* Glowing Neon Purple Capsule (Photo 1 Signature) */
+.neon-capsule {
+  background: rgba(168, 85, 247, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(168, 85, 247, 0.75);
+  box-shadow: 0 0 45px rgba(168, 85, 247, 0.5), inset 0 0 24px rgba(168, 85, 247, 0.3);
+  color: #c084fc;
+}
+
+/* Floating Glass Navbar (Photo 1 Signature) */
+.glass-navbar {
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+}
+
+/* Dark Card with Rim Light */
+.dark-card {
+  background: rgba(16, 16, 22, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   transition: transform 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99),
+              border-color 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99),
               box-shadow 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99);
 }
 
-.card-lift:hover {
+.dark-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.1);
 }
 
-/* Hide scrollbars while allowing scroll */
+/* Hide scrollbars */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Subgrid and wall grid for work section */
-.work-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 1.5rem;
-}
-
-@media (max-width: 1024px) {
-  .work-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Infinite Marquee */
@@ -125,7 +138,7 @@
 @keyframes wordIn {
   0% {
     opacity: 0;
-    transform: translateY(14px) scale(0.98);
+    transform: translateY(12px) scale(0.96);
   }
   100% {
     opacity: 1;
@@ -137,20 +150,9 @@
   animation: wordIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Liquid Glass badge & nodes */
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-}
-
-/* Accordion transition helper */
 details summary::-webkit-details-marker {
   display: none;
 }
 details > summary {
   list-style: none;
 }
-
