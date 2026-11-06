@@ -99,15 +99,7 @@ export function ThennHero({ onSwitchMode }: ThennHeroProps) {
           {/* The Glowing Purple Neon Glass Capsule */}
           <div className="my-2 sm:my-3 inline-block">
             <span
-              className="inline-flex items-center px-6 sm:px-8 py-1.5 sm:py-2.5 rounded-3xl sm:rounded-4xl font-bold tracking-tight text-[#c084fc] transition-all duration-300"
-              style={{
-                background: "rgba(168, 85, 247, 0.12)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                border: "2px solid rgba(168, 85, 247, 0.75)",
-                boxShadow:
-                  "0 0 45px rgba(168, 85, 247, 0.5), inset 0 0 24px rgba(168, 85, 247, 0.3)",
-              }}
+              className="neon-capsule-purple inline-flex items-center px-6 sm:px-8 py-1.5 sm:py-2.5 rounded-3xl sm:rounded-4xl font-bold tracking-tight text-[#c084fc] transition-all duration-300"
             >
               <span key={wordIndex} className="animate-word-in">
                 {WORDS[wordIndex]}
