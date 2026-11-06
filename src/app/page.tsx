@@ -178,7 +178,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== TELEMETRY & NUMBERS ===================== */}
-      <section className="py-24 px-[var(--page-gutter)] border-y border-white/10 bg-[#09090d]">
+      <section className="py-24 px-[var(--page-gutter)] border-y border-white/10 glass-section relative">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
@@ -382,7 +382,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== SERVICES / CAPABILITIES ===================== */}
-      <section className="py-28 px-[var(--page-gutter)] border-b border-white/10 bg-[#09090d]">
+      <section className="py-28 px-[var(--page-gutter)] border-b border-white/10 glass-section relative">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
@@ -542,7 +542,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== FAQ ACCORDION ===================== */}
-      <section className="py-28 px-[var(--page-gutter)] border-b border-white/10 bg-[#09090d]">
+      <section className="py-28 px-[var(--page-gutter)] border-b border-white/10 glass-section relative">
         <div className="max-w-4xl mx-auto">
           <div className="mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-3">

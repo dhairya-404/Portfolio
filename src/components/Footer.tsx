@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowUp, ArrowRight, Check, Copy } from "lucide-react";
+import { ParticleWave } from "./ParticleWave";
 
 export function Footer() {
   const [copied, setCopied] = useState(false);
@@ -36,7 +37,7 @@ export function Footer() {
           <span>Available for High-Throughput Systems & Full-Stack Projects</span>
         </div>
 
-        {/* Big Closing Statement (Photo 3 & 4 Signature) */}
+        {/* Big Closing Statement */}
         <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] mb-6">
           Got something worth{" "}
           <span className="font-editorial-serif font-normal italic text-[#c084fc]">
@@ -45,69 +46,75 @@ export function Footer() {
           ?
         </h2>
 
-        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-12">
-          Tell me where you are and what you want to build. I reply within one working day—with architectural clarity and a direct technical roadmap.
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-6">
+          Tell me where you are and what you want to build. A founder replies within one working day—with questions, then a tailored technical proposal.
         </p>
 
-        {/* Floating Liquid Glass Action Capsules (Photo 3 & 4 Signature) */}
-        <div className="relative py-12 mb-16">
-          {/* Subtle perspective dot-matrix wave backdrop */}
-          <div
-            className="absolute inset-x-0 -inset-y-8 bg-dot-matrix-perspective opacity-50 pointer-events-none"
-            style={{
-              maskImage:
-                "radial-gradient(ellipse 90% 70% at 30% 50%, black 20%, transparent 80%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 90% 70% at 30% 50%, black 20%, transparent 80%)",
-            }}
-          />
+        {/* ─── 3D UNDULATING PARTICLE WAVE BAND WITH DUAL FLOATING GLASS CAPSULES ─── */}
+        <div className="relative my-10 sm:my-14 -mx-4 sm:-mx-8">
+          {/* 3D Particle Wave Canvas */}
+          <ParticleWave className="w-full" />
 
-          <div className="relative z-10 flex flex-wrap items-center gap-4">
-            {/* Start a project glass capsule */}
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-3 pl-6 pr-2.5 py-3 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-0.5 active:scale-98"
-              style={{
-                background: "rgba(14, 14, 22, 0.75)",
-                backdropFilter: "blur(24px) saturate(160%)",
-                WebkitBackdropFilter: "blur(24px) saturate(160%)",
-                border: "1px solid rgba(255, 255, 255, 0.16)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.6)",
-              }}
-            >
-              <span>Start a project</span>
-              <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_10px_rgba(45,212,191,0.6)]">
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </Link>
+          {/* Floating Liquid Glass Capsules pinned over the Wave */}
+          <div className="absolute inset-0 flex items-center justify-start px-4 sm:px-8 pointer-events-none">
+            <div className="pointer-events-auto flex flex-wrap items-center gap-4 sm:gap-6">
+              {/* Capsule 1: Start a project */}
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-1 active:scale-98 cursor-pointer"
+                style={{
+                  background: "rgba(10, 10, 16, 0.72)",
+                  backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.18)",
+                  boxShadow: [
+                    "0 0 0 1px rgba(255, 255, 255, 0.08)",
+                    "inset 0 1px 0 rgba(255, 255, 255, 0.3)",
+                    "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
+                    "0 18px 45px rgba(0, 0, 0, 0.75)",
+                    "0 0 35px rgba(45, 212, 191, 0.12)",
+                  ].join(","),
+                }}
+              >
+                <span className="tracking-tight">Start a project</span>
+                <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_12px_rgba(45,212,191,0.7)]">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </Link>
 
-            {/* Email glass capsule (copies or mailto) */}
-            <button
-              onClick={copyEmail}
-              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-neutral-200 font-mono text-xs sm:text-sm transition-all duration-300 hover:text-white hover:-translate-y-0.5 active:scale-98 cursor-pointer"
-              style={{
-                background: "rgba(14, 14, 22, 0.6)",
-                backdropFilter: "blur(24px) saturate(160%)",
-                WebkitBackdropFilter: "blur(24px) saturate(160%)",
-                border: "1px solid rgba(255, 255, 255, 0.14)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.18), 0 12px 32px rgba(0,0,0,0.5)",
-              }}
-              title="Click to copy email address"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4 text-[#2dd4bf]" />
-                  <span className="text-[#2dd4bf] font-sans font-medium">Copied to clipboard!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4 opacity-50" />
-                  <span>dhairyagajera470@gmail.com</span>
-                </>
-              )}
-            </button>
+              {/* Capsule 2: Email Liquid Glass Capsule */}
+              <button
+                onClick={copyEmail}
+                className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-neutral-100 font-editorial-serif italic text-base sm:text-lg transition-all duration-300 hover:text-white hover:-translate-y-1 active:scale-98 cursor-pointer"
+                style={{
+                  background: "rgba(10, 10, 16, 0.65)",
+                  backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.18)",
+                  boxShadow: [
+                    "0 0 0 1px rgba(255, 255, 255, 0.08)",
+                    "inset 0 1px 0 rgba(255, 255, 255, 0.3)",
+                    "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
+                    "0 18px 45px rgba(0, 0, 0, 0.7)",
+                  ].join(","),
+                }}
+                title="Click to copy email address"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4 text-[#2dd4bf] font-sans not-italic" />
+                    <span className="text-[#2dd4bf] font-sans text-sm font-medium not-italic">
+                      Copied to clipboard!
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 opacity-40 font-sans not-italic" />
+                    <span>dhairyagajera470@gmail.com</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 

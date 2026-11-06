@@ -67,10 +67,10 @@ export default function ContactPage() {
                     type="button"
                     key={s}
                     onClick={() => setSelectedService(s)}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3.5 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                       selectedService === s
-                        ? "bg-white/10 border-teal-400 text-white font-bold"
-                        : "bg-white/5 border-white/5 text-neutral-400 hover:text-white"
+                        ? "bg-white/15 border-[#2dd4bf] text-white font-bold shadow-[0_0_15px_rgba(45,212,191,0.25)]"
+                        : "glass-chip text-neutral-400 hover:text-white"
                     }`}
                   >
                     {s}
@@ -89,10 +89,10 @@ export default function ContactPage() {
                     type="button"
                     key={t}
                     onClick={() => setSelectedTimeline(t)}
-                    className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                    className={`p-3.5 rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
                       selectedTimeline === t
-                        ? "bg-white/10 border-teal-400 text-white font-bold"
-                        : "bg-white/5 border-white/5 text-neutral-400 hover:text-white"
+                        ? "bg-white/15 border-[#2dd4bf] text-white font-bold shadow-[0_0_15px_rgba(45,212,191,0.25)]"
+                        : "glass-chip text-neutral-400 hover:text-white"
                     }`}
                   >
                     {t}
@@ -112,7 +112,7 @@ export default function ContactPage() {
                   placeholder="e.g. Alex Chen"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-teal-400 transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 text-white text-sm focus:outline-none focus:border-[#2dd4bf] focus:ring-1 focus:ring-[#2dd4bf]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all placeholder:text-neutral-500"
                 />
               </div>
 
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   placeholder="alex@domain.com"
                   value={clientEmail}
                   onChange={(e) => setClientEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-teal-400 transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 text-white text-sm focus:outline-none focus:border-[#2dd4bf] focus:ring-1 focus:ring-[#2dd4bf]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all placeholder:text-neutral-500"
                 />
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function ContactPage() {
                 placeholder="Tell me about your system constraints, goals, and technical requirements..."
                 value={projectMessage}
                 onChange={(e) => setProjectMessage(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-teal-400 transition-colors"
+                className="w-full px-4 py-3 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 text-white text-sm focus:outline-none focus:border-[#2dd4bf] focus:ring-1 focus:ring-[#2dd4bf]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all placeholder:text-neutral-500"
               />
             </div>
 
