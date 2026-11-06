@@ -21,8 +21,8 @@ export function Navigation({ activeSection }: NavProps) {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          // Hide when scrolling down past 100px, reveal when scrolling up
-          if (currentScrollY > 100 && currentScrollY > lastScrollY + 4) {
+          // Hide when scrolling down past 120px, reveal when scrolling up
+          if (currentScrollY > 120 && currentScrollY > lastScrollY + 4) {
             setIsScrolledAway(true);
           } else if (currentScrollY < lastScrollY - 4 || currentScrollY < 60) {
             setIsScrolledAway(false);
@@ -50,9 +50,12 @@ export function Navigation({ activeSection }: NavProps) {
 
   const navLinks = [
     { id: "work", label: "Work" },
+    { id: "services", label: "Capabilities" },
+    { id: "process", label: "Process" },
     { id: "about", label: "About" },
     { id: "writing", label: "Writing" },
     { id: "experiments", label: "Play" },
+    { id: "faq", label: "FAQ" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -65,25 +68,25 @@ export function Navigation({ activeSection }: NavProps) {
             : "translate-y-0 opacity-100 blur-none"
         }`}
       >
-        <div className="pointer-events-auto flex items-center justify-between gap-3 nav-pill px-3.5 py-2 rounded-full max-w-xl w-full shadow-sm hover:shadow-md transition-shadow">
+        <div className="pointer-events-auto flex items-center justify-between gap-2 sm:gap-3 nav-pill px-3 sm:px-4 py-2 rounded-full max-w-2xl w-full shadow-sm hover:shadow-md transition-shadow">
           {/* Brand mark */}
           <a
             href="#"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-black/5 transition-colors text-sm text-neutral-900 group"
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded-full hover:bg-black/5 transition-colors text-sm text-neutral-900 group shrink-0"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse group-hover:scale-125 transition-transform" />
             <span className="font-semibold tracking-tight">Dhairya</span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                     isActive
                       ? "bg-neutral-900 text-white shadow-xs"
                       : "text-neutral-600 hover:text-neutral-950 hover:bg-black/5"
@@ -95,8 +98,28 @@ export function Navigation({ activeSection }: NavProps) {
             })}
           </nav>
 
+          {/* Condensed Links for Medium Screens */}
+          <nav className="hidden md:flex lg:hidden items-center gap-1">
+            {navLinks.filter(l => ["work", "services", "about", "writing", "contact"].includes(l.id)).map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className={`px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-neutral-900 text-white"
+                      : "text-neutral-600 hover:text-neutral-950 hover:bg-black/5"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
           {/* Quick email action */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               onClick={copyEmail}
               aria-label="Copy email address"
@@ -119,7 +142,7 @@ export function Navigation({ activeSection }: NavProps) {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle mobile navigation menu"
-              className="md:hidden p-1.5 rounded-full text-neutral-700 hover:bg-black/5 transition-colors cursor-pointer"
+              className="lg:hidden p-1.5 rounded-full text-neutral-700 hover:bg-black/5 transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -129,7 +152,7 @@ export function Navigation({ activeSection }: NavProps) {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm md:hidden flex items-start justify-center pt-24 px-4 animate-in fade-in duration-150">
+        <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden flex items-start justify-center pt-24 px-4 animate-in fade-in duration-150">
           <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200/80 p-5 w-full max-w-sm flex flex-col gap-2">
             <div className="text-xs font-mono text-neutral-400 px-3 py-1 uppercase tracking-wider">
               Navigation
@@ -148,10 +171,10 @@ export function Navigation({ activeSection }: NavProps) {
             <div className="h-px bg-neutral-100 my-1" />
             <a
               href="mailto:dhairyagajera470@gmail.com"
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-neutral-950 text-white text-xs font-medium mt-1 hover:bg-neutral-800 transition-colors"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition-colors"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span>dhairyagajera470@gmail.com</span>
+              <Mail className="w-4 h-4" />
+              <span>Email Dhairya</span>
             </a>
           </div>
         </div>

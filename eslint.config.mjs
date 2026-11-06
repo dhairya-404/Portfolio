@@ -18,6 +18,7 @@ const eslintConfig = defineConfig([
     ".github/**",
     ".codex/**",
     "scripts/**",
+    "references_inspect/**",
     "*.js",
   ]),
 ]);

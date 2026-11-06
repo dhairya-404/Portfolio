@@ -1,11 +1,46 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, Copy, Check, Sparkles } from "lucide-react";
+import { ArrowDown, Copy, Check, Sparkles, Terminal } from "lucide-react";
+
+const WORDS = [
+  "network systems",
+  "web applications",
+  "socket bonding engines",
+  "ML architectures",
+  "tactile interfaces",
+  "creative experiments",
+];
+
+const MARQUEE_ITEMS = [
+  "Multi-Network Bonding",
+  "Socket Multiplexing",
+  "Next.js 16 Turbopack",
+  "TypeScript",
+  "React 19",
+  "PHP & ML Inference",
+  "Packet Aggregation",
+  "Sub-50ms Latency",
+  "RK4 Kinetic Physics",
+  "Tailwind CSS v4",
+  "WebSocket Streaming",
+  "Sub-millisecond IPC",
+  "Zero Layout Shift",
+  "Creative Coding",
+];
 
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [copied, setCopied] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  // Cycling words like thenn.in
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, []);
 
   // Subtle ambient particle grid canvas (recreating andreas.vision sky/cloud canvas)
   useEffect(() => {
@@ -96,7 +131,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-[var(--page-gutter)] pt-28 pb-16 overflow-hidden">
+    <section className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-between px-[var(--page-gutter)] pt-32 pb-12 overflow-hidden">
       {/* Background Interactive Ambient Canvas */}
       <canvas
         ref={canvasRef}
@@ -104,80 +139,95 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none opacity-80"
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto w-full">
+      <div className="relative z-10 max-w-5xl mx-auto w-full my-auto">
         {/* Status Kicker Badge */}
-        <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-neutral-100/80 border border-neutral-200/60 mb-8 backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-neutral-100/90 border border-neutral-200/70 mb-8 backdrop-blur-sm shadow-xs">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="text-xs font-mono font-medium tracking-tight text-neutral-600">
-            Dhairya · Systems & Creative Engineering
+          <span className="text-xs font-mono font-medium tracking-tight text-neutral-700">
+            Dhairya · Systems & Full-Stack Developer
           </span>
         </div>
 
-        {/* Hero Title with Iconic Editorial Italic Serif Highlight */}
+        {/* Hero Title with Thenn-style Word Cycle & Andreas-style Italic Highlight */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-medium tracking-[-0.035em] text-neutral-950 leading-[1.08] mb-8">
-          Systems developer who builds with{" "}
-          <span className="font-editorial-serif text-neutral-800 font-normal">
-            intention
-          </span>
-          .
+          Engineering{" "}
+          <span className="inline-block relative min-w-[280px] sm:min-w-[340px] md:min-w-[480px]">
+            <span
+              key={wordIndex}
+              className="animate-word-in inline-block font-editorial-serif text-neutral-800 font-normal underline decoration-neutral-300 underline-offset-8"
+            >
+              {WORDS[wordIndex]}
+            </span>
+          </span>{" "}
+          <br className="hidden sm:inline" />
+          with obsessive craft.
         </h1>
 
         {/* Narrative Bio */}
-        <p className="text-lg sm:text-xl md:text-2xl text-neutral-600 font-normal leading-relaxed tracking-tight max-w-2xl mb-10">
-          I&apos;m Dhairya. I engineer high-throughput network architectures,
-          predictive machine learning backends, and tactile digital interfaces.
-          Bridging wire protocols, systems logic, and frontend craft.
+        <p className="text-lg sm:text-xl md:text-2xl text-neutral-600 font-normal leading-relaxed tracking-tight max-w-3xl mb-10">
+          I&apos;m <span className="font-semibold text-neutral-900">Dhairya</span>. I build high-throughput multi-network bonding protocols, machine learning inference backends, and tactile digital products. Bridging low-level socket streaming with ultra-responsive frontend architecture.
         </p>
 
         {/* Action Triggers */}
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
             href="#work"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-neutral-950 text-white hover:bg-neutral-800 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-neutral-950 text-white hover:bg-neutral-800 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow"
           >
             <span>Selected Projects</span>
             <ArrowDown className="w-4 h-4 opacity-70" />
           </a>
 
           <a
-            href="#experiments"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-neutral-100 hover:bg-neutral-200/80 text-neutral-800 text-sm font-medium transition-colors"
+            href="#services"
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-neutral-100 hover:bg-neutral-200/80 text-neutral-800 text-sm font-medium transition-colors border border-neutral-200/50"
           >
-            <Sparkles className="w-4 h-4 opacity-60 text-amber-600" />
-            <span>Interactive Play</span>
+            <Terminal className="w-4 h-4 opacity-70 text-neutral-700" />
+            <span>Capabilities</span>
+          </a>
+
+          <a
+            href="#experiments"
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-neutral-100 hover:bg-neutral-200/80 text-neutral-800 text-sm font-medium transition-colors border border-neutral-200/50"
+          >
+            <Sparkles className="w-4 h-4 opacity-70 text-amber-600" />
+            <span>Interactive Lab</span>
           </a>
 
           <button
             onClick={handleCopyEmail}
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-neutral-200 hover:border-neutral-300 text-neutral-700 text-sm font-medium hover:bg-neutral-50 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-3.5 rounded-full bg-white hover:bg-neutral-50 text-neutral-700 hover:text-neutral-900 text-sm font-mono border border-neutral-200/80 transition-colors shadow-xs"
+            title="Copy email to clipboard"
           >
             {copied ? (
               <>
-                <Check className="w-4 h-4 text-emerald-600" />
-                <span className="text-emerald-700 font-medium">Email Copied</span>
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-xs font-sans text-emerald-700 font-medium">Copied!</span>
               </>
             ) : (
               <>
-                <Copy className="w-4 h-4 text-neutral-400" />
-                <span>dhairyagajera470@gmail.com</span>
+                <Copy className="w-3.5 h-3.5 opacity-60" />
+                <span className="text-xs font-mono">dhairyagajera470@gmail.com</span>
               </>
             )}
           </button>
         </div>
+      </div>
 
-        {/* Tech tags kicker */}
-        <div className="pt-14 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-neutral-500">
-          <span className="text-neutral-400">Core Focus:</span>
-          <span>Multi-Network Bonding</span>
-          <span className="text-neutral-300">/</span>
-          <span>PHP + Machine Learning</span>
-          <span className="text-neutral-300">/</span>
-          <span>Next.js & TypeScript</span>
-          <span className="text-neutral-300">/</span>
-          <span>Socket Orchestration</span>
+      {/* Infinite Marquee Ticker Bar (Thenn.in Signature Pattern) */}
+      <div className="relative z-10 w-full pt-16 pb-4 border-t border-neutral-200/60 overflow-hidden">
+        <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+            <div key={index} className="flex items-center gap-8 shrink-0">
+              <span className="hover:text-neutral-950 transition-colors cursor-default">
+                {item}
+              </span>
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-neutral-300" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

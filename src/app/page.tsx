@@ -3,19 +3,33 @@
 import { useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
+import { NumbersSection } from "@/components/NumbersSection";
 import { WorkSection } from "@/components/WorkSection";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ProcessSection } from "@/components/ProcessSection";
 import { AboutSection } from "@/components/AboutSection";
 import { WritingSection } from "@/components/WritingSection";
 import { ExperimentsSection } from "@/components/ExperimentsSection";
+import { FaqSection } from "@/components/FaqSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
-    const sectionIds = ["work", "about", "writing", "experiments", "contact"];
+    const sectionIds = [
+      "work",
+      "services",
+      "process",
+      "about",
+      "writing",
+      "experiments",
+      "faq",
+      "contact",
+    ];
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 220;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const id = sectionIds[i];
@@ -38,23 +52,35 @@ export default function Home() {
       <Navigation activeSection={activeSection} />
 
       <main>
-        {/* Hero Section */}
+        {/* Hero Section with particle canvas & dynamic marquee */}
         <Hero />
 
-        {/* Selected Projects & Experiments Wall */}
+        {/* Telemetry & Impact Numbers Banner (Thenn.in Signature) */}
+        <NumbersSection />
+
+        {/* Selected Projects & Interactive Packet Bonding Simulator (Andreas.vision Signature) */}
         <WorkSection />
 
-        {/* 12-Column About & Core Values Philosophy */}
+        {/* Engineering Capabilities & Technical Scope (Thenn.in Signature) */}
+        <ServicesSection />
+
+        {/* Project Lifecycle Rail: Understand, Design, Build, Refine (Thenn.in Signature) */}
+        <ProcessSection />
+
+        {/* 12-Column Editorial Grid & Core Philosophy (Andreas.vision Signature) */}
         <AboutSection />
 
-        {/* Taste Notes & Editorial Writing */}
+        {/* Technical Essays & In-Browser Article Modal (Andreas.vision Signature) */}
         <WritingSection />
 
-        {/* Creative Coding Playground & Live Simulators */}
+        {/* Creative Coding Lab & Live Kinetic Physics Sandbox (Andreas.vision Signature) */}
         <ExperimentsSection />
+
+        {/* Questions, Answered - Interactive Accordion (Thenn.in Signature) */}
+        <FaqSection />
       </main>
 
-      {/* Contact & Closing Colophon */}
+      {/* Closing Statement, Direct Inquiries & Colophon */}
       <ContactSection />
     </div>
   );
