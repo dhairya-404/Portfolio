@@ -69,42 +69,17 @@ export function Navbar() {
         {/* ─── The Snug Glass Capsule Pill ───────────────────────────────── */}
         <nav
           aria-label="Primary"
-          className="pointer-events-auto inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 transition-all duration-300 ease-out"
+          className="glass-navbar pointer-events-auto inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 transition-all duration-300 ease-out"
           style={{
             height: isCompact ? "50px" : "56px",
             padding: isCompact ? "4px 6px 4px 18px" : "5px 8px 5px 22px",
             borderRadius: "9999px",
-            background: isCompact
-              ? "rgba(10, 10, 16, 0.75)"
-              : "rgba(12, 12, 18, 0.62)",
-            backdropFilter: isCompact
-              ? "blur(32px) saturate(200%) brightness(1.08)"
-              : "blur(24px) saturate(180%) brightness(1.05)",
-            WebkitBackdropFilter: isCompact
-              ? "blur(32px) saturate(200%) brightness(1.08)"
-              : "blur(24px) saturate(180%) brightness(1.05)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
-            boxShadow: isCompact
-              ? [
-                  "0 0 0 1px rgba(255,255,255,0.08)",
-                  "inset 0 2px 1px rgba(255,255,255,0.45)",
-                  "inset 0 -1px 0 rgba(0,0,0,0.5)",
-                  "0 14px 40px rgba(0,0,0,0.78)",
-                  "0 32px 64px rgba(0,0,0,0.4)",
-                ].join(",")
-              : [
-                  "0 0 0 1px rgba(255,255,255,0.06)",
-                  "inset 0 2px 1px rgba(255,255,255,0.4)",
-                  "inset 0 -1px 0 rgba(0,0,0,0.4)",
-                  "0 12px 32px rgba(0,0,0,0.6)",
-                  "0 24px 50px rgba(0,0,0,0.3)",
-                ].join(","),
           }}
         >
-          {/* ── Brand Logo with Teal Glow Dot ── */}
+          {/* ── Brand Logo with Encased Glass Pill & Teal Glow Dot ── */}
           <Link
             href="/"
-            className="flex items-center gap-1 text-white font-semibold tracking-tight text-sm sm:text-base mr-1 hover:opacity-90 transition-opacity"
+            className="flex items-center gap-1 text-white font-semibold tracking-tight text-sm sm:text-base mr-1 px-3 py-1.5 rounded-full hover:bg-white/[0.08] transition-all"
           >
             <span>dhairya</span>
             <span
@@ -122,30 +97,15 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3 py-1.5 rounded-full text-xs lg:text-[13px] font-medium tracking-tight transition-all duration-200"
-                  style={{
-                    color: isActive ? "#ffffff" : "rgba(255,255,255,0.65)",
-                    background: isActive
-                      ? "rgba(255,255,255,0.1)"
-                      : "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = "#ffffff";
-                      e.currentTarget.style.background =
-                        "rgba(255,255,255,0.06)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = "rgba(255,255,255,0.65)";
-                      e.currentTarget.style.background = "transparent";
-                    }
-                  }}
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs lg:text-[13px] font-medium tracking-tight transition-all duration-200 ${
+                    isActive
+                      ? "text-white bg-white/[0.12] shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                      : "text-white/70 hover:text-white hover:bg-white/[0.08]"
+                  }`}
                 >
                   <span>{link.label}</span>
                   {isActive && (
-                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#2dd4bf] shadow-[0_0_4px_#2dd4bf]" />
+                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#2dd4bf] shadow-[0_0_6px_#2dd4bf]" />
                   )}
                 </Link>
               );
@@ -155,11 +115,11 @@ export function Navbar() {
           {/* ── Start a Project Button (thenn.in signature pill) ── */}
           <Link
             href="/contact"
-            className="flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-neutral-950 font-medium text-xs sm:text-[13px] hover:bg-neutral-100 transition-all shadow-sm group ml-1"
+            className="flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-neutral-950 font-medium text-xs sm:text-[13px] hover:bg-neutral-100 transition-all shadow-[0_2px_12px_rgba(255,255,255,0.25)] group ml-1"
           >
-            <span className="whitespace-nowrap">Start a project</span>
-            <div className="w-6 h-6 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_8px_rgba(45,212,191,0.5)]">
-              <ArrowRight className="w-3.5 h-3.5" />
+            <span className="whitespace-nowrap font-semibold">Start a project</span>
+            <div className="w-6 h-6 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_10px_rgba(45,212,191,0.6)]">
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </div>
           </Link>
 

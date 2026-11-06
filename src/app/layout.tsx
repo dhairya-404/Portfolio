@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { InteractiveDotGrid } from "@/components/InteractiveDotGrid";
+import { GlassGleam } from "@/components/GlassGleam";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,6 +59,8 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#070709] text-white font-sans selection:bg-purple-900/50 selection:text-white flex flex-col justify-between overflow-x-hidden relative">
         {/* Full-Screen Interactive Dot Grid (Enlightens dots on hover) */}
         <InteractiveDotGrid />
+        {/* Dynamic iOS 27 Specular Glass Light Reflection Glint */}
+        <GlassGleam />
         <Navbar />
         <div className="flex-1 flex flex-col relative z-10">
           {children}

@@ -37,6 +37,8 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
     let mouseY = 0;
     let targetMouseX = 0;
     let targetMouseY = 0;
+    let pointerCanvasX = -1000;
+    let pointerCanvasY = -1000;
 
     const ROWS = 42;
     const SEPARATION_Z = 34;
@@ -61,8 +63,17 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
       const normY = (e.clientY - rect.top) / rect.height - 0.5;
       targetMouseX = normX * 90;
       targetMouseY = normY * 40;
+      pointerCanvasX = e.clientX - rect.left;
+      pointerCanvasY = e.clientY - rect.top;
     };
+
+    const handleMouseLeave = () => {
+      pointerCanvasX = -1000;
+      pointerCanvasY = -1000;
+    };
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -136,16 +147,35 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
 
           if (finalAlpha <= 0.01) continue;
 
+          // Interactive cursor enlightenment (matching thenn.in Photo 5)
+          const distToCursor = Math.hypot(screenX - pointerCanvasX, screenY - pointerCanvasY);
+          const isCursorEnlightened = distToCursor < 160;
+
+          let curRadius = radius;
+          let curAlpha = finalAlpha;
+
+          if (isCursorEnlightened) {
+            const ease = 1 - distToCursor / 160;
+            curRadius = radius + ease * 2.2;
+            curAlpha = Math.min(1, finalAlpha + ease * 0.7);
+          }
+
           // Subtle teal shimmer on wave peaks
           const isPeak = y3d > -CAMERA_HEIGHT + 14;
 
           ctx.beginPath();
-          ctx.arc(screenX, screenY, radius, 0, Math.PI * 2);
+          ctx.arc(screenX, screenY, curRadius, 0, Math.PI * 2);
 
-          if (isPeak && finalAlpha > 0.4) {
-            ctx.fillStyle = `rgba(45, 212, 191, ${finalAlpha * 0.95})`;
+          if (isCursorEnlightened) {
+            ctx.fillStyle = `rgba(45, 212, 191, ${curAlpha})`;
+            ctx.shadowColor = "rgba(45, 212, 191, 0.75)";
+            ctx.shadowBlur = curRadius * 3;
+          } else if (isPeak && curAlpha > 0.4) {
+            ctx.fillStyle = `rgba(45, 212, 191, ${curAlpha * 0.95})`;
+            ctx.shadowBlur = 0;
           } else {
-            ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha * 0.8})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${curAlpha * 0.8})`;
+            ctx.shadowBlur = 0;
           }
           ctx.fill();
         }
@@ -160,6 +190,7 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       observer.disconnect();
     };
   }, []);

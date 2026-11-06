@@ -5,7 +5,7 @@ import { ArrowLeft, Cpu, CheckCircle2 } from "lucide-react";
 
 export default function MlInferenceCaseStudy() {
   return (
-    <article className="py-24 px-[var(--page-gutter)] max-w-4xl mx-auto w-full">
+    <article className="py-24 px-[var(--page-gutter)] max-w-5xl mx-auto w-full">
       {/* Back button */}
       <Link
         href="/work"

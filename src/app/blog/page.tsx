@@ -125,15 +125,7 @@ export default function BlogPage() {
           onClick={() => setSelectedArticle(null)}
         >
           <div
-            className="rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-10 relative"
-            style={{
-              background: "rgba(12, 12, 18, 0.88)",
-              backdropFilter: "blur(36px) saturate(180%)",
-              WebkitBackdropFilter: "blur(36px) saturate(180%)",
-              border: "1px solid rgba(255, 255, 255, 0.14)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 24px 80px rgba(0,0,0,0.85)",
-            }}
+            className="rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-10 relative glass-card-heavy"
             onClick={(e) => e.stopPropagation()}
           >
             <button

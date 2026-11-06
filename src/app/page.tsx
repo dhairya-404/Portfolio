@@ -97,10 +97,10 @@ export default function HomePage() {
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.035em] text-white leading-[1.05] mb-8">
             <div>We build</div>
 
-            {/* The Glowing Neon Liquid Glass Capsule */}
+            {/* The Glowing Neon Liquid Glass Capsule (thenn.in signature 3D lens) */}
             <div className="my-2 sm:my-3 inline-block">
               <span
-                className={`inline-flex items-center px-6 sm:px-8 py-1.5 sm:py-2.5 rounded-3xl sm:rounded-4xl font-bold tracking-tight transition-all duration-500 ${
+                className={`inline-flex items-center px-7 sm:px-10 py-2 sm:py-3.5 rounded-full font-bold tracking-tight transition-all duration-500 ${
                   WORDS[wordIndex].color === "teal"
                     ? "neon-capsule-teal"
                     : "neon-capsule-purple"
@@ -124,24 +124,11 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-1 active:scale-98 cursor-pointer"
-              style={{
-                background: "rgba(10, 10, 16, 0.72)",
-                backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                boxShadow: [
-                  "0 0 0 1px rgba(255, 255, 255, 0.08)",
-                  "inset 0 2px 1px rgba(255, 255, 255, 0.45)",
-                  "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
-                  "0 18px 45px rgba(0, 0, 0, 0.75)",
-                  "0 0 35px rgba(45, 212, 191, 0.12)",
-                ].join(","),
-              }}
+              className="glass-capsule-btn inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base group active:scale-98 cursor-pointer"
             >
-              <span>Start a project</span>
+              <span className="tracking-tight">Start a project</span>
               <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_12px_rgba(45,212,191,0.7)]">
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </div>
             </Link>
 
@@ -299,7 +286,7 @@ export default function HomePage() {
               </div>
 
               {/* Right: Live Interactive Telemetry Preview */}
-              <div className="lg:col-span-5 p-6 rounded-2xl bg-black/60 border border-white/10 font-mono text-xs space-y-4">
+              <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
                   <span className="text-neutral-400">MULTIPLEXER STATUS</span>
                   <span className="text-teal-400 flex items-center gap-1.5 font-bold">
@@ -370,7 +357,7 @@ export default function HomePage() {
               </div>
 
               {/* Right: IPC Telemetry Diagram */}
-              <div className="lg:col-span-5 p-6 rounded-2xl bg-black/60 border border-white/10 font-mono text-xs space-y-4">
+              <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
                   <span className="text-neutral-400">IPC PIPELINE TELEMETRY</span>
                   <span className="text-purple-400 font-bold">&lt; 45ms P95</span>

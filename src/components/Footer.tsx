@@ -61,59 +61,34 @@ export function Footer() {
         <div className="absolute inset-0 flex items-center justify-start pointer-events-none">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 w-full">
             <div className="pointer-events-auto flex flex-wrap items-center gap-4 sm:gap-6">
-              {/* Capsule 1: Start a project */}
+              {/* Capsule 1: Start a project (thenn.in signature liquid glass pill) */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-1 active:scale-98 cursor-pointer"
-                style={{
-                  background: "rgba(10, 10, 16, 0.72)",
-                  backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                  WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.18)",
-                  boxShadow: [
-                    "0 0 0 1px rgba(255, 255, 255, 0.08)",
-                    "inset 0 1px 0 rgba(255, 255, 255, 0.3)",
-                    "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
-                    "0 18px 45px rgba(0, 0, 0, 0.75)",
-                    "0 0 35px rgba(45, 212, 191, 0.12)",
-                  ].join(","),
-                }}
+                className="glass-capsule-btn inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base group active:scale-98 cursor-pointer"
               >
-                <span className="tracking-tight">Start a project</span>
-                <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_12px_rgba(45,212,191,0.7)]">
-                  <ArrowRight className="w-4 h-4" />
+                <span className="tracking-tight font-semibold">Start a project</span>
+                <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_12px_rgba(45,212,191,0.8)]">
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </div>
               </Link>
 
               {/* Capsule 2: Email Liquid Glass Capsule */}
               <button
                 onClick={copyEmail}
-                className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-neutral-100 font-editorial-serif italic text-base sm:text-lg transition-all duration-300 hover:text-white hover:-translate-y-1 active:scale-98 cursor-pointer"
-                style={{
-                  background: "rgba(10, 10, 16, 0.65)",
-                  backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                  WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.18)",
-                  boxShadow: [
-                    "0 0 0 1px rgba(255, 255, 255, 0.08)",
-                    "inset 0 1px 0 rgba(255, 255, 255, 0.3)",
-                    "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
-                    "0 18px 45px rgba(0, 0, 0, 0.7)",
-                  ].join(","),
-                }}
+                className="glass-capsule-btn inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-neutral-100 font-editorial-serif italic text-base sm:text-lg transition-all duration-300 hover:text-white active:scale-98 cursor-pointer"
                 title="Click to copy email address"
               >
                 {copied ? (
                   <>
                     <Check className="w-4 h-4 text-[#2dd4bf] font-sans not-italic" />
-                    <span className="text-[#2dd4bf] font-sans text-sm font-medium not-italic">
+                    <span className="text-[#2dd4bf] font-sans text-sm font-semibold not-italic">
                       Copied to clipboard!
                     </span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 opacity-40 font-sans not-italic" />
-                    <span>dhairyagajera470@gmail.com</span>
+                    <Copy className="w-4 h-4 opacity-40 font-sans not-italic group-hover:opacity-75 transition-opacity" />
+                    <span className="tracking-tight">dhairyagajera470@gmail.com</span>
                   </>
                 )}
               </button>

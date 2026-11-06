@@ -121,7 +121,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <div className="flex items-center justify-between p-8 rounded-2xl bg-white/5 border border-white/10">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-8 sm:p-10 rounded-3xl dark-card">
         <div>
           <h3 className="text-lg font-bold text-white">Ready to collaborate?</h3>
           <p className="text-xs font-mono text-neutral-400">Direct inquiries welcome anytime.</p>

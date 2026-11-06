@@ -20,7 +20,7 @@ export default function MultiNetworkBondingCaseStudy() {
   const totalSpeed = eth0Speed + wlan0Speed;
 
   return (
-    <article className="py-24 px-[var(--page-gutter)] max-w-4xl mx-auto w-full">
+    <article className="py-24 px-[var(--page-gutter)] max-w-5xl mx-auto w-full">
       {/* Back button */}
       <Link
         href="/work"

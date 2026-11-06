@@ -178,7 +178,7 @@ export default function WorkPage() {
             </div>
 
             {/* Metrics Showcase */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-black/60 border border-white/10 font-mono text-xs space-y-4">
+            <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
               <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 border-b border-white/10 pb-3 flex justify-between">
                 <span>Verified Telemetry</span>
                 <span className="text-teal-400">ACTIVE</span>
