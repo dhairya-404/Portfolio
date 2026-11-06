@@ -63,8 +63,18 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
       const normY = (e.clientY - rect.top) / rect.height - 0.5;
       targetMouseX = normX * 90;
       targetMouseY = normY * 40;
-      pointerCanvasX = e.clientX - rect.left;
-      pointerCanvasY = e.clientY - rect.top;
+
+      // Check if cursor is over floating glass capsules/buttons to prevent interfering
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const isOverGlass = !!el?.closest(".glass-capsule-btn, a, button, .chip");
+
+      if (isOverGlass) {
+        pointerCanvasX = -1000;
+        pointerCanvasY = -1000;
+      } else {
+        pointerCanvasX = e.clientX - rect.left;
+        pointerCanvasY = e.clientY - rect.top;
+      }
     };
 
     const handleMouseLeave = () => {
@@ -168,14 +178,10 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
 
           if (isCursorEnlightened) {
             ctx.fillStyle = `rgba(45, 212, 191, ${curAlpha})`;
-            ctx.shadowColor = "rgba(45, 212, 191, 0.75)";
-            ctx.shadowBlur = curRadius * 3;
           } else if (isPeak && curAlpha > 0.4) {
             ctx.fillStyle = `rgba(45, 212, 191, ${curAlpha * 0.95})`;
-            ctx.shadowBlur = 0;
           } else {
             ctx.fillStyle = `rgba(255, 255, 255, ${curAlpha * 0.8})`;
-            ctx.shadowBlur = 0;
           }
           ctx.fill();
         }
