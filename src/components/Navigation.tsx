@@ -8,7 +8,7 @@ interface NavProps {
 }
 
 export function Navigation({ activeSection }: NavProps) {
-  const [isScrolledAway, setIsScrolledAway] = useState(false);
+  const [isScrolledAway, setIsScrolledAway] = useState(true);
   const [copied, setCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,11 +21,15 @@ export function Navigation({ activeSection }: NavProps) {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          // Hide when scrolling down past 120px, reveal when scrolling up
-          if (currentScrollY > 120 && currentScrollY > lastScrollY + 4) {
+          // Hide when near top of hero, reveal when scrolling up in content
+          if (currentScrollY > 240) {
+            if (currentScrollY > lastScrollY + 6) {
+              setIsScrolledAway(true);
+            } else if (currentScrollY < lastScrollY - 4) {
+              setIsScrolledAway(false);
+            }
+          } else {
             setIsScrolledAway(true);
-          } else if (currentScrollY < lastScrollY - 4 || currentScrollY < 60) {
-            setIsScrolledAway(false);
           }
           lastScrollY = currentScrollY;
           ticking = false;
