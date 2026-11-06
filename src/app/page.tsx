@@ -134,7 +134,7 @@ export default function HomePage() {
 
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 px-5 py-3.5 text-sm sm:text-base text-neutral-300 hover:text-white transition-colors group cursor-pointer"
+              className="glass-chip inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm sm:text-base text-neutral-200 hover:text-white transition-all group cursor-pointer"
             >
               <span>See the work</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-neutral-400 group-hover:text-white" />

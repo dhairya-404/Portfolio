@@ -13,18 +13,20 @@ import { useEffect } from "react";
 export function GlassGleam() {
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement)?.closest(
-        ".glass-card, .glass-card-heavy, .glass-liquid, .neon-capsule, .neon-capsule-teal, .neon-capsule-purple, .dark-card, .glass-navbar, .glass-capsule-btn, .glass-chip, .glass-terminal"
-      ) as HTMLElement | null;
+      let el: HTMLElement | null = e.target as HTMLElement;
+      const selector =
+        ".glass-card, .glass-card-heavy, .glass-liquid, .neon-capsule, .neon-capsule-teal, .neon-capsule-purple, .dark-card, .glass-navbar, .glass-capsule-btn, .glass-chip, .glass-terminal, .glass-nav-link";
 
-      if (!target) return;
-
-      const rect = target.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-      target.style.setProperty("--gx", `${x.toFixed(1)}%`);
-      target.style.setProperty("--gy", `${y.toFixed(1)}%`);
+      while (el && el !== document.body) {
+        if (el.matches?.(selector)) {
+          const rect = el.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          el.style.setProperty("--gx", `${x.toFixed(1)}%`);
+          el.style.setProperty("--gy", `${y.toFixed(1)}%`);
+        }
+        el = el.parentElement;
+      }
     };
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
