@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0d0d11;
+  --ink: #0d0d11;
+  --paper: #ffffff;
+  --muted: #71717a;
+  --muted-light: #a1a1aa;
+  --subtle-bg: #f7f7f8;
+  --card-bg: #ffffff;
+  --border: #e8e8ed;
+  --border-subtle: #f0f0f4;
+  --pill-bg: rgba(0, 0, 0, 0.04);
+  --pill-hover: rgba(0, 0, 0, 0.08);
+  --accent-blue: #0070f3;
+  --accent-emerald: #10b981;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  --page-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --max-content: 1360px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: #111117;
+    color: #ffffff;
+  }
+}
+
+.font-editorial-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Glass floating dock */
+.nav-pill {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Card lift interaction */
+.card-lift {
+  transition: transform 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99),
+              box-shadow 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99);
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Hide scrollbars while allowing scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subgrid and wall grid for work section */
+.work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+}
