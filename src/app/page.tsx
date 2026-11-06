@@ -114,24 +114,32 @@ export default function HomePage() {
             We design and build websites, web apps and systems for startups and growing businesses worldwide. One engineer, from the first conversation to launch.
           </p>
 
-          {/* Action Triggers (Photo 1 Signature) */}
+          {/* Action Triggers (Photo 1 Signature — Liquid Glass Capsule) */}
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-white border border-white/20 transition-all shadow-xl group cursor-pointer"
+              className="inline-flex items-center gap-3 pl-6 pr-2.5 py-3 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-0.5 active:scale-98 cursor-pointer"
+              style={{
+                background: "rgba(14, 14, 22, 0.75)",
+                backdropFilter: "blur(24px) saturate(160%)",
+                WebkitBackdropFilter: "blur(24px) saturate(160%)",
+                border: "1px solid rgba(255, 255, 255, 0.16)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.6)",
+              }}
             >
-              <span className="text-sm font-medium">Start a project</span>
-              <div className="w-8 h-8 rounded-full bg-teal-400 flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_8px_rgba(45,212,191,0.6)]">
+              <span>Start a project</span>
+              <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_10px_rgba(45,212,191,0.6)]">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
             <Link
               href="/work"
-              className="flex items-center gap-1.5 px-5 py-2.5 text-sm text-neutral-300 hover:text-white transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 text-sm text-neutral-300 hover:text-white transition-colors group cursor-pointer"
             >
               <span>See the work</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-neutral-400 group-hover:text-white" />
             </Link>
           </div>
         </div>

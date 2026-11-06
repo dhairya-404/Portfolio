@@ -24,8 +24,8 @@
   --paper: #070709;
   --muted: #a1a1aa;
   --muted-dark: #52525b;
-  --card-bg: rgba(18, 18, 24, 0.75);
-  --card-border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(18, 18, 24, 0.72);
+  --card-border: rgba(255, 255, 255, 0.09);
   --card-hover-border: rgba(255, 255, 255, 0.22);
   --border: rgba(255, 255, 255, 0.1);
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -37,6 +37,17 @@
   --radius-pill: 9999px;
   --page-gutter: clamp(1.25rem, 5vw, 4rem);
   --max-content: 1360px;
+
+  /* ── Glass Design System Tokens ── */
+  --glass-bg: rgba(14, 14, 20, 0.6);
+  --glass-bg-hover: rgba(18, 18, 26, 0.75);
+  --glass-blur: blur(20px) saturate(160%);
+  --glass-blur-heavy: blur(32px) saturate(180%);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.2);
+  --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  --glass-shadow-hover: 0 20px 50px rgba(0,0,0,0.65), 0 0 30px rgba(168,85,247,0.08);
 }
 
 @layer base {
@@ -48,12 +59,19 @@
     background-color: var(--background);
     color: var(--foreground);
   }
+
+  /* Ambient background glow — gives glass something to refract against */
   body {
     background-color: #070709;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(168, 85, 247, 0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(45, 212, 191, 0.05) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(99, 60, 180, 0.04) 0%, transparent 70%);
     color: #ffffff;
     font-family: var(--font-sans);
     overflow-x: hidden;
   }
+
   ::selection {
     background-color: rgba(168, 85, 247, 0.4);
     color: #ffffff;
@@ -66,61 +84,201 @@
   font-weight: 400;
 }
 
-/* Background Dot Matrix (Thenn Signature) */
-.bg-dot-matrix {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1.2px, transparent 1.2px);
-  background-size: 28px 28px;
+/* ═══════════════════════════════════════════════════════════
+   GLASS DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+
+/* Primary glass card — used for large section cards */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-rim), var(--glass-shadow);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.715, 0.205, 0.99),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
-/* Glowing Neon Purple Capsule (Photo 1 Signature) */
-.neon-capsule {
-  background: rgba(168, 85, 247, 0.12);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid rgba(168, 85, 247, 0.75);
-  box-shadow: 0 0 45px rgba(168, 85, 247, 0.5), inset 0 0 24px rgba(168, 85, 247, 0.3);
-  color: #c084fc;
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-rim), var(--glass-shadow-hover);
+  transform: translateY(-3px);
 }
 
-/* Floating Glass Navbar (Photo 1 Signature) */
-.glass-navbar {
-  background: rgba(15, 15, 20, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+/* Heavier glass — for stat blocks and featured sections */
+.glass-card-heavy {
+  background: rgba(10, 10, 16, 0.75);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.715, 0.205, 0.99),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* Dark Card with Rim Light */
-.dark-card {
-  background: rgba(16, 16, 22, 0.8);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.glass-card-heavy:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255,0.2),
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(168, 85, 247, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Subtle glass — for inline chips, tags, kickers */
+.glass-chip {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-chip:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Section glass container — large section background panels */
+.glass-section {
+  background: rgba(8, 8, 14, 0.5);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Code/terminal block glass */
+.glass-terminal {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  transition: transform 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99),
-              border-color 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99),
-              box-shadow 0.28s cubic-bezier(0.2, 0.715, 0.205, 0.99);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Teal-tinted glass — for highlighted or active states */
+.glass-teal {
+  background: rgba(45, 212, 191, 0.06);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(45, 212, 191, 0.12),
+    0 4px 20px rgba(45, 212, 191, 0.08);
+}
+
+/* Purple-tinted glass — for accent/featured content */
+.glass-purple {
+  background: rgba(168, 85, 247, 0.06);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(168, 85, 247, 0.12),
+    0 4px 20px rgba(168, 85, 247, 0.08);
+}
+
+/* Legacy alias — existing pages that use dark-card get glass treatment */
+.dark-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-rim), var(--glass-shadow);
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.715, 0.205, 0.99),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
 .dark-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.1);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-rim), var(--glass-shadow-hover);
+  transform: translateY(-3px);
 }
 
-/* Hide scrollbars */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ═══════════════════════════════════════════════════════════
+   BACKGROUND PATTERNS
+   ═══════════════════════════════════════════════════════════ */
+
+/* Background Dot Matrix (Thenn Signature) */
+.bg-dot-matrix {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+/* Dot matrix that fades with perspective toward center-bottom (like thenn.in) */
+.bg-dot-matrix-perspective {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, black 40%, transparent 100%);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════════════════ */
+
+/* Floating Glass Navbar */
+.glass-navbar {
+  background: rgba(10, 10, 16, 0.72);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEON CAPSULE
+   ═══════════════════════════════════════════════════════════ */
+
+/* Glowing Neon Purple Capsule (Photo 1 Signature) */
+.neon-capsule {
+  background: rgba(168, 85, 247, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(168, 85, 247, 0.7);
+  box-shadow:
+    0 0 50px rgba(168, 85, 247, 0.45),
+    0 0 100px rgba(168, 85, 247, 0.15),
+    inset 0 0 24px rgba(168, 85, 247, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #c084fc;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLLBARS
+   ═══════════════════════════════════════════════════════════ */
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
 
 /* Infinite Marquee */
 @keyframes marquee {
-  0% { transform: translateX(0%); }
+  0%   { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
 
@@ -130,29 +288,31 @@
   animation: marquee 28s linear infinite;
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
+.animate-marquee:hover { animation-play-state: paused; }
 
 /* Dynamic Word Cycle Fade & Slide */
 @keyframes wordIn {
-  0% {
-    opacity: 0;
-    transform: translateY(12px) scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  0%   { opacity: 0; transform: translateY(12px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0)   scale(1); }
 }
 
 .animate-word-in {
   animation: wordIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-details summary::-webkit-details-marker {
-  display: none;
+/* Glass shimmer pulse */
+@keyframes glassShimmer {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
 }
-details > summary {
-  list-style: none;
+
+.animate-glass-shimmer {
+  animation: glassShimmer 3s ease-in-out infinite;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MISC
+   ═══════════════════════════════════════════════════════════ */
+
+details summary::-webkit-details-marker { display: none; }
+details > summary { list-style: none; }

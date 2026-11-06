@@ -118,13 +118,27 @@ export default function BlogPage() {
         ))}
       </div>
 
-      {/* In-Browser Article Reading Modal */}
+      {/* In-Browser Article Reading Modal (Liquid Glass Dialog) */}
       {selectedArticle && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-          <div className="bg-[#0e0e14] border border-white/10 rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-10 shadow-2xl relative">
+        <div
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setSelectedArticle(null)}
+        >
+          <div
+            className="rounded-3xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-10 relative"
+            style={{
+              background: "rgba(12, 12, 18, 0.88)",
+              backdropFilter: "blur(36px) saturate(180%)",
+              WebkitBackdropFilter: "blur(36px) saturate(180%)",
+              border: "1px solid rgba(255, 255, 255, 0.14)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 24px 80px rgba(0,0,0,0.85)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setSelectedArticle(null)}
-              className="absolute top-6 right-6 p-2 rounded-full bg-white/10 text-neutral-300 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-6 right-6 p-2 rounded-full glass-chip text-neutral-300 hover:text-white transition-colors cursor-pointer"
               aria-label="Close article"
             >
               <X className="w-5 h-5" />

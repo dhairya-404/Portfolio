@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUp, ArrowRight, Check, Copy, Mail } from "lucide-react";
+import { ArrowUp, ArrowRight, Check, Copy } from "lucide-react";
 
 export function Footer() {
   const [copied, setCopied] = useState(false);
@@ -23,21 +23,21 @@ export function Footer() {
     { href: "/about", label: "Studio" },
     { href: "/approach", label: "Approach" },
     { href: "/blog", label: "Journal" },
-    { href: "/experiments", label: "Creative Lab" },
-    { href: "/contact", label: "Start a project" },
+    { href: "/experiments", label: "Lab" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
-    <footer className="pt-28 pb-16 px-[var(--page-gutter)] border-t border-white/10 bg-[#070709] text-white">
-      <div className="max-w-5xl mx-auto">
+    <footer className="relative pt-32 pb-16 px-[var(--page-gutter)] border-t border-white/10 bg-[#070709] text-white overflow-hidden">
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Kicker */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-neutral-400 mb-8 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-chip text-xs font-mono text-neutral-300 mb-8">
+          <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
           <span>Available for High-Throughput Systems & Full-Stack Projects</span>
         </div>
 
-        {/* Big Closing Statement */}
-        <h2 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-8">
+        {/* Big Closing Statement (Photo 3 & 4 Signature) */}
+        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] mb-6">
           Got something worth{" "}
           <span className="font-editorial-serif font-normal italic text-[#c084fc]">
             building
@@ -46,51 +46,65 @@ export function Footer() {
         </h2>
 
         <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-12">
-          From multi-network socket bonding and download acceleration to sub-50ms machine learning inference and high-craft Next.js interfaces — let&apos;s build software that feels instantaneous.
+          Tell me where you are and what you want to build. I reply within one working day—with architectural clarity and a direct technical roadmap.
         </p>
 
-        {/* Primary Contact Card */}
-        <div className="p-8 sm:p-10 rounded-3xl dark-card flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2">
-              <Mail className="w-3.5 h-3.5 text-teal-400" />
-              <span>Direct Inquiries</span>
-            </div>
-            <a
-              href="mailto:dhairyagajera470@gmail.com"
-              className="text-xl sm:text-3xl font-mono font-medium text-white hover:text-teal-300 transition-colors tracking-tight break-all"
-            >
-              dhairyagajera470@gmail.com
-            </a>
-            <div className="text-xs text-neutral-400 mt-2">
-              Direct response within 24 hours · Open for remote consulting and core architecture
-            </div>
-          </div>
+        {/* Floating Liquid Glass Action Capsules (Photo 3 & 4 Signature) */}
+        <div className="relative py-12 mb-16">
+          {/* Subtle perspective dot-matrix wave backdrop */}
+          <div
+            className="absolute inset-x-0 -inset-y-8 bg-dot-matrix-perspective opacity-50 pointer-events-none"
+            style={{
+              maskImage:
+                "radial-gradient(ellipse 90% 70% at 30% 50%, black 20%, transparent 80%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 90% 70% at 30% 50%, black 20%, transparent 80%)",
+            }}
+          />
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <div className="relative z-10 flex flex-wrap items-center gap-4">
+            {/* Start a project glass capsule */}
             <Link
               href="/contact"
-              className="flex items-center gap-2.5 pl-5 pr-2 py-2 rounded-full bg-white text-neutral-950 text-sm font-semibold hover:bg-neutral-200 transition-all shadow-md group cursor-pointer"
+              className="inline-flex items-center gap-3 pl-6 pr-2.5 py-3 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-0.5 active:scale-98"
+              style={{
+                background: "rgba(14, 14, 22, 0.75)",
+                backdropFilter: "blur(24px) saturate(160%)",
+                WebkitBackdropFilter: "blur(24px) saturate(160%)",
+                border: "1px solid rgba(255, 255, 255, 0.16)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.6)",
+              }}
             >
               <span>Start a project</span>
-              <div className="w-7 h-7 rounded-full bg-teal-400 flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_8px_rgba(45,212,191,0.5)]">
+              <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_10px_rgba(45,212,191,0.6)]">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
+            {/* Email glass capsule (copies or mailto) */}
             <button
               onClick={copyEmail}
-              className="flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 text-sm font-medium border border-white/10 transition-colors"
+              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-neutral-200 font-mono text-xs sm:text-sm transition-all duration-300 hover:text-white hover:-translate-y-0.5 active:scale-98 cursor-pointer"
+              style={{
+                background: "rgba(14, 14, 22, 0.6)",
+                backdropFilter: "blur(24px) saturate(160%)",
+                WebkitBackdropFilter: "blur(24px) saturate(160%)",
+                border: "1px solid rgba(255, 255, 255, 0.14)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.18), 0 12px 32px rgba(0,0,0,0.5)",
+              }}
+              title="Click to copy email address"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-teal-400" />
-                  <span className="text-teal-400 font-medium">Copied!</span>
+                  <Check className="w-4 h-4 text-[#2dd4bf]" />
+                  <span className="text-[#2dd4bf] font-sans font-medium">Copied to clipboard!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4 opacity-60" />
-                  <span>Copy Email</span>
+                  <Copy className="w-4 h-4 opacity-50" />
+                  <span>dhairyagajera470@gmail.com</span>
                 </>
               )}
             </button>
@@ -113,12 +127,12 @@ export function Footer() {
         {/* Bottom Colophon & Timestamp */}
         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-neutral-500">
           <div>
-            <span>© 2026 Dhairya. Built with Next.js 16 Turbopack & obsessive craft.</span>
+            <span>© 2026 Dhairya · Systems & Full-Stack Engineering.</span>
           </div>
 
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-neutral-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-400 shadow-[0_0_6px_rgba(45,212,191,0.8)]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2dd4bf] shadow-[0_0_6px_rgba(45,212,191,0.8)]" />
               <span>India · IST (UTC+5:30)</span>
             </span>
             <button

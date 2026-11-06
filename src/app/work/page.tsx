@@ -116,10 +116,10 @@ export default function WorkPage() {
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id)}
-              className={`px-4 py-2 rounded-full text-xs font-mono transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
                 filter === tab.id
-                  ? "bg-white text-neutral-950 font-bold shadow-md"
-                  : "bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10"
+                  ? "bg-white text-neutral-950 font-bold shadow-[0_0_20px_rgba(255,255,255,0.25)]"
+                  : "glass-chip text-neutral-400 hover:text-white"
               }`}
             >
               {tab.label}
