@@ -3,16 +3,15 @@
 import { useEffect, useRef } from "react";
 
 /*
- * 3D Undulating Perspective Dot-Matrix Particle Wave
+ * 3D Full-Bleed Perspective Particle Wave (thenn.in signature)
  *
- * Recreates the thenn.in signature animated 3D particle wave:
- * - Mathematical grid of dots in 3D perspective space (X, Y, Z)
- * - Harmonically layered sinusoidal wave displacement:
- *     Y = sin(ix * 0.25 + time) * 18 + cos(iz * 0.3 + time * 1.2) * 14
- * - Depth projection (X_proj = x / z, Y_proj = y / z) with horizon perspective
- * - Dynamic alpha and size scaling based on Z-depth (particles close to viewer are larger and luminous)
- * - Gentle mouse/pointer parallax reaction
- * - Zero CPU waste: pauses when offscreen via IntersectionObserver
+ * Mathematically adapts to ANY screen width (mobile, 1080p, 1440p, 4K ultrawide):
+ * - For every depth slice Z, particles are generated from screen left (X < 0)
+ *   to screen right (X > width) so there are ZERO empty black gaps on either side.
+ * - Undulating harmonic sine/cosine wave dynamics.
+ * - High-DPI crispness with smooth requestAnimationFrame rendering.
+ * - Gentle mouse/pointer interactive parallax.
+ * - Pauses via IntersectionObserver when offscreen.
  */
 
 interface ParticleWaveProps {
@@ -39,11 +38,9 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
     let targetMouseX = 0;
     let targetMouseY = 0;
 
-    // Grid configuration
-    const COLS = 55;
-    const ROWS = 45;
-    const SEPARATION_X = 38;
-    const SEPARATION_Z = 32;
+    const ROWS = 42;
+    const SEPARATION_Z = 34;
+    const STEP_X = 36; // spacing between dots along X axis
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -58,17 +55,15 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
     resize();
     window.addEventListener("resize", resize);
 
-    // Track mouse over canvas parent for gentle interactive tilt
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       const normX = (e.clientX - rect.left) / rect.width - 0.5;
       const normY = (e.clientY - rect.top) / rect.height - 0.5;
-      targetMouseX = normX * 80;
-      targetMouseY = normY * 35;
+      targetMouseX = normX * 90;
+      targetMouseY = normY * 40;
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // IntersectionObserver to pause rendering when not in viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -77,9 +72,8 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
     );
     observer.observe(canvas);
 
-    // 3D Camera / Projection settings
-    const CAMERA_HEIGHT = 220;
-    const FOV = 340;
+    const CAMERA_HEIGHT = 200;
+    const FOV = 360;
 
     const render = () => {
       if (!isVisible) {
@@ -87,62 +81,71 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
         return;
       }
 
-      // Smooth mouse interpolation
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      time += 0.024;
+      time += 0.022;
       ctx.clearRect(0, 0, width, height);
 
-      const centerX = width / 2 + mouseX * 0.35;
-      const centerY = height * 0.42 + mouseY * 0.25;
+      const centerX = width / 2 + mouseX * 0.4;
+      const centerY = height * 0.44 + mouseY * 0.25;
 
-      // Draw 3D particle grid
+      // Draw 3D particle rows from back to front
       for (let iz = 0; iz < ROWS; iz++) {
-        // Z distance from camera (further in back to closer in front)
-        const z = (ROWS - iz) * SEPARATION_Z + 120;
+        const z = (ROWS - iz) * SEPARATION_Z + 110;
         const scale = FOV / z;
 
-        for (let ix = 0; ix < COLS; ix++) {
-          const x3d = (ix - COLS / 2) * SEPARATION_X;
+        // Calculate 3D X range required to cover beyond the screen edges at this depth
+        const x3dMin = (-centerX - 60) / scale;
+        const x3dMax = (width - centerX + 60) / scale;
 
-          // Undulating wave equations: multiple sine/cosine frequencies
-          // creating organic rolling ripples
-          const wave1 = Math.sin(ix * 0.22 + time * 1.3) * 26;
-          const wave2 = Math.cos(iz * 0.28 + time * 1.1) * 22;
-          const wave3 = Math.sin((ix + iz) * 0.15 + time * 0.8) * 16;
+        // Align starting X to a multiple of STEP_X for consistent grid alignment
+        const startX = Math.floor(x3dMin / STEP_X) * STEP_X;
+
+        const depthRatio = Math.max(0, Math.min(1, (z - 110) / (ROWS * SEPARATION_Z)));
+        const baseAlpha = (1 - depthRatio * 0.78) * 0.85;
+        const radius = Math.max(0.7, (1 - depthRatio * 0.6) * 2.2);
+
+        for (let x3d = startX; x3d <= x3dMax; x3d += STEP_X) {
+          // Index for harmonic wave calculations
+          const ix = Math.round(x3d / STEP_X);
+
+          // Undulating wave equations with harmonic sine/cosine layers
+          const wave1 = Math.sin(ix * 0.2 + time * 1.25) * 26;
+          const wave2 = Math.cos(iz * 0.26 + time * 1.05) * 20;
+          const wave3 = Math.sin((ix + iz) * 0.14 + time * 0.75) * 14;
           const y3d = wave1 + wave2 + wave3 - CAMERA_HEIGHT;
 
-          // 2D perspective projection
+          // 2D projection
           const screenX = centerX + x3d * scale;
           const screenY = centerY - y3d * scale;
 
-          // Cull out-of-bounds particles
           if (
-            screenX < -20 ||
-            screenX > width + 20 ||
-            screenY < -20 ||
-            screenY > height + 20
+            screenX < -25 ||
+            screenX > width + 25 ||
+            screenY < -25 ||
+            screenY > height + 25
           ) {
             continue;
           }
 
-          // Depth-based size and luminescence (alpha)
-          // Nearer particles are brighter, farther particles fade into darkness
-          const depthRatio = Math.max(0, Math.min(1, (z - 120) / (ROWS * SEPARATION_Z)));
-          const alpha = (1 - depthRatio * 0.82) * 0.88;
-          const radius = Math.max(0.7, (1 - depthRatio * 0.65) * 2.1);
+          // Edge falloff on the extreme viewport margins (subtle smooth vignette)
+          const edgeDist = Math.min(screenX, width - screenX);
+          const edgeFade = Math.min(1, Math.max(0, edgeDist / 60));
+          const finalAlpha = baseAlpha * edgeFade;
 
-          // Subtle teal tint on crests
-          const isCrest = y3d > -CAMERA_HEIGHT + 14;
+          if (finalAlpha <= 0.01) continue;
+
+          // Subtle teal shimmer on wave peaks
+          const isPeak = y3d > -CAMERA_HEIGHT + 14;
 
           ctx.beginPath();
           ctx.arc(screenX, screenY, radius, 0, Math.PI * 2);
 
-          if (isCrest && alpha > 0.5) {
-            ctx.fillStyle = `rgba(45, 212, 191, ${alpha * 0.95})`;
+          if (isPeak && finalAlpha > 0.4) {
+            ctx.fillStyle = `rgba(45, 212, 191, ${finalAlpha * 0.95})`;
           } else {
-            ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha * 0.8})`;
           }
           ctx.fill();
         }
@@ -163,12 +166,12 @@ export function ParticleWave({ className = "" }: ParticleWaveProps) {
 
   return (
     <div
-      className={`relative w-full h-[380px] sm:h-[440px] overflow-hidden pointer-events-none select-none ${className}`}
+      className={`relative w-full h-[400px] sm:h-[460px] overflow-hidden pointer-events-none select-none ${className}`}
       style={{
         maskImage:
-          "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
         WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
       }}
     >
       <canvas

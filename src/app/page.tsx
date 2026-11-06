@@ -84,7 +84,7 @@ export default function HomePage() {
     <div className="relative w-full">
       {/* ===================== HERO SECTION ===================== */}
       <section className="relative min-h-[92vh] flex flex-col justify-center px-[var(--page-gutter)] pt-20 pb-16 overflow-hidden bg-dot-matrix">
-        <div className="relative z-10 max-w-5xl mx-auto w-full my-auto">
+        <div className="relative z-10 max-w-7xl mx-auto w-full my-auto">
           {/* Status Kicker Badge */}
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
@@ -179,7 +179,7 @@ export default function HomePage() {
 
       {/* ===================== TELEMETRY & NUMBERS ===================== */}
       <section className="py-24 px-[var(--page-gutter)] border-y border-white/10 glass-section relative">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
               <div className="text-xs font-mono uppercase tracking-widest text-teal-400 mb-2">
@@ -227,7 +227,7 @@ export default function HomePage() {
 
       {/* ===================== FEATURED WORK ===================== */}
       <section className="py-28 px-[var(--page-gutter)] border-b border-white/10">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-3">
@@ -383,7 +383,7 @@ export default function HomePage() {
 
       {/* ===================== SERVICES / CAPABILITIES ===================== */}
       <section className="py-28 px-[var(--page-gutter)] border-b border-white/10 glass-section relative">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-3">
@@ -475,7 +475,7 @@ export default function HomePage() {
 
       {/* ===================== PROCESS / APPROACH ===================== */}
       <section className="py-28 px-[var(--page-gutter)] border-b border-white/10">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-3">

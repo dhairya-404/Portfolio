@@ -90,7 +90,7 @@ export default function WorkPage() {
   const filtered = filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
 
   return (
-    <div className="py-24 px-[var(--page-gutter)] max-w-6xl mx-auto w-full">
+    <div className="py-24 px-[var(--page-gutter)] max-w-7xl mx-auto w-full">
       {/* Page Header */}
       <div className="mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-4">

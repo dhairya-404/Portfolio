@@ -33,7 +33,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="py-24 px-[var(--page-gutter)] max-w-5xl mx-auto w-full">
+    <div className="py-24 px-[var(--page-gutter)] max-w-6xl mx-auto w-full">
       {/* Header */}
       <div className="mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-4">

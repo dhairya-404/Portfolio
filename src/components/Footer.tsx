@@ -29,8 +29,9 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative pt-32 pb-16 px-[var(--page-gutter)] border-t border-white/10 bg-[#070709] text-white overflow-hidden">
-      <div className="max-w-5xl mx-auto relative z-10">
+    <footer className="relative pt-32 pb-16 border-t border-white/10 bg-[#070709] text-white overflow-hidden w-full">
+      {/* ─── TOP CONTENT (Wide Max-Width Container) ─── */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 w-full relative z-10">
         {/* Kicker */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-chip text-xs font-mono text-neutral-300 mb-8">
           <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
@@ -38,7 +39,7 @@ export function Footer() {
         </div>
 
         {/* Big Closing Statement */}
-        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] mb-6">
+        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] mb-6 max-w-5xl">
           Got something worth{" "}
           <span className="font-editorial-serif font-normal italic text-[#c084fc]">
             building
@@ -46,17 +47,19 @@ export function Footer() {
           ?
         </h2>
 
-        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-6">
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-8">
           Tell me where you are and what you want to build. A founder replies within one working day—with questions, then a tailored technical proposal.
         </p>
+      </div>
 
-        {/* ─── 3D UNDULATING PARTICLE WAVE BAND WITH DUAL FLOATING GLASS CAPSULES ─── */}
-        <div className="relative my-10 sm:my-14 -mx-4 sm:-mx-8">
-          {/* 3D Particle Wave Canvas */}
-          <ParticleWave className="w-full" />
+      {/* ─── 100% FULL-BLEED 3D UNDULATING PARTICLE WAVE (NO SIDE PADDING) ─── */}
+      <div className="relative w-full my-8 sm:my-12 overflow-hidden">
+        {/* 3D Particle Wave Canvas spans 100% of viewport width */}
+        <ParticleWave className="w-full" />
 
-          {/* Floating Liquid Glass Capsules pinned over the Wave */}
-          <div className="absolute inset-0 flex items-center justify-start px-4 sm:px-8 pointer-events-none">
+        {/* Floating Liquid Glass Capsules overlaying the wave, aligned to content margin */}
+        <div className="absolute inset-0 flex items-center justify-start pointer-events-none">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 w-full">
             <div className="pointer-events-auto flex flex-wrap items-center gap-4 sm:gap-6">
               {/* Capsule 1: Start a project */}
               <Link
@@ -117,7 +120,10 @@ export function Footer() {
             </div>
           </div>
         </div>
+      </div>
 
+      {/* ─── BOTTOM SITEMAP & COLOPHON (Wide Max-Width Container) ─── */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 w-full relative z-10">
         {/* Multi-Page Sitemap Navigation */}
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 py-8 border-y border-white/10 text-xs font-mono">
           {navLinks.map((item) => (

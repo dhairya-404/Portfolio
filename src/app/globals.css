@@ -35,8 +35,8 @@
   --neon-teal-glow: rgba(45, 212, 191, 0.45);
   --radius-card: 22px;
   --radius-pill: 9999px;
-  --page-gutter: clamp(1.25rem, 5vw, 4rem);
-  --max-content: 1360px;
+  --page-gutter: clamp(1rem, 3.5vw, 2.5rem);
+  --max-content: 1440px;
 
   /* ── Glass Design System Tokens ── */
   --glass-bg: rgba(13, 13, 20, 0.72);
