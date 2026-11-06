@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { InteractiveDotGrid } from "@/components/InteractiveDotGrid";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,9 +55,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} scroll-smooth antialiased dark`}
     >
-      <body className="min-h-screen bg-[#070709] text-white font-sans selection:bg-purple-900/50 selection:text-white flex flex-col justify-between overflow-x-hidden">
+      <body className="min-h-screen bg-[#070709] text-white font-sans selection:bg-purple-900/50 selection:text-white flex flex-col justify-between overflow-x-hidden relative">
+        {/* Full-Screen Interactive Dot Grid (Enlightens dots on hover) */}
+        <InteractiveDotGrid />
         <Navbar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col relative z-10">
           {children}
         </div>
         <Footer />

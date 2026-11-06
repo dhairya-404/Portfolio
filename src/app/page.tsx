@@ -14,12 +14,12 @@ import {
 } from "lucide-react";
 
 const WORDS = [
-  "brands",
-  "network systems",
-  "web apps",
-  "ML platforms",
-  "socket engines",
-  "products",
+  { text: "products", color: "teal" },
+  { text: "brands", color: "purple" },
+  { text: "network systems", color: "teal" },
+  { text: "ML platforms", color: "purple" },
+  { text: "socket engines", color: "teal" },
+  { text: "web apps", color: "purple" },
 ];
 
 const STATS = [
@@ -83,25 +83,31 @@ export default function HomePage() {
   return (
     <div className="relative w-full">
       {/* ===================== HERO SECTION ===================== */}
-      <section className="relative min-h-[92vh] flex flex-col justify-center px-[var(--page-gutter)] pt-20 pb-16 overflow-hidden bg-dot-matrix">
+      <section className="relative min-h-[92vh] flex flex-col justify-center px-[var(--page-gutter)] pt-20 pb-16 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto w-full my-auto">
           {/* Status Kicker Badge */}
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-chip mb-8 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
             <span className="text-xs font-mono font-medium tracking-tight text-neutral-300">
               Dhairya · Systems & Full-Stack Developer
             </span>
           </div>
 
-          {/* Huge Typography with Glowing Purple Neon Glass Capsule (Photo 1 Signature) */}
+          {/* Huge Typography with Glowing Neon Liquid Glass Capsule (Photo 1 Signature) */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.035em] text-white leading-[1.05] mb-8">
             <div>We build</div>
 
-            {/* The Glowing Purple Neon Glass Capsule */}
+            {/* The Glowing Neon Liquid Glass Capsule */}
             <div className="my-2 sm:my-3 inline-block">
-              <span className="neon-capsule inline-flex items-center px-6 sm:px-8 py-1.5 sm:py-2.5 rounded-3xl sm:rounded-4xl font-bold tracking-tight">
+              <span
+                className={`inline-flex items-center px-6 sm:px-8 py-1.5 sm:py-2.5 rounded-3xl sm:rounded-4xl font-bold tracking-tight transition-all duration-500 ${
+                  WORDS[wordIndex].color === "teal"
+                    ? "neon-capsule-teal"
+                    : "neon-capsule-purple"
+                }`}
+              >
                 <span key={wordIndex} className="animate-word-in">
-                  {WORDS[wordIndex]}
+                  {WORDS[wordIndex].text}
                 </span>
               </span>
             </div>
@@ -110,7 +116,7 @@ export default function HomePage() {
           </h1>
 
           {/* Narrative Subtitle */}
-          <p className="text-base sm:text-xl md:text-2xl text-neutral-400 font-normal leading-relaxed tracking-tight max-w-2xl mb-12">
+          <p className="text-base sm:text-xl md:text-2xl text-neutral-400 font-normal leading-relaxed tracking-tight max-w-3xl mb-12">
             We design and build websites, web apps and systems for startups and growing businesses worldwide. One engineer, from the first conversation to launch.
           </p>
 
@@ -118,25 +124,30 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 pl-6 pr-2.5 py-3 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-0.5 active:scale-98 cursor-pointer"
+              className="inline-flex items-center gap-3 pl-7 pr-2.5 py-3.5 rounded-full text-white font-medium text-sm sm:text-base transition-all duration-300 group hover:-translate-y-1 active:scale-98 cursor-pointer"
               style={{
-                background: "rgba(14, 14, 22, 0.75)",
-                backdropFilter: "blur(24px) saturate(160%)",
-                WebkitBackdropFilter: "blur(24px) saturate(160%)",
-                border: "1px solid rgba(255, 255, 255, 0.16)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.6)",
+                background: "rgba(10, 10, 16, 0.72)",
+                backdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                WebkitBackdropFilter: "blur(24px) saturate(180%) brightness(1.05)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                boxShadow: [
+                  "0 0 0 1px rgba(255, 255, 255, 0.08)",
+                  "inset 0 2px 1px rgba(255, 255, 255, 0.45)",
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.5)",
+                  "0 18px 45px rgba(0, 0, 0, 0.75)",
+                  "0 0 35px rgba(45, 212, 191, 0.12)",
+                ].join(","),
               }}
             >
               <span>Start a project</span>
-              <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_10px_rgba(45,212,191,0.6)]">
+              <div className="w-8 h-8 rounded-full bg-[#2dd4bf] flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_12px_rgba(45,212,191,0.7)]">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 px-5 py-3 text-sm text-neutral-300 hover:text-white transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3.5 text-sm sm:text-base text-neutral-300 hover:text-white transition-colors group cursor-pointer"
             >
               <span>See the work</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-neutral-400 group-hover:text-white" />

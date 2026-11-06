@@ -75,29 +75,29 @@ export function Navbar() {
             padding: isCompact ? "4px 6px 4px 18px" : "5px 8px 5px 22px",
             borderRadius: "9999px",
             background: isCompact
-              ? "rgba(10, 10, 15, 0.78)"
-              : "rgba(12, 12, 18, 0.65)",
+              ? "rgba(10, 10, 16, 0.75)"
+              : "rgba(12, 12, 18, 0.62)",
             backdropFilter: isCompact
-              ? "blur(28px) saturate(180%) brightness(1.05)"
-              : "blur(20px) saturate(160%) brightness(1.02)",
+              ? "blur(32px) saturate(200%) brightness(1.08)"
+              : "blur(24px) saturate(180%) brightness(1.05)",
             WebkitBackdropFilter: isCompact
-              ? "blur(28px) saturate(180%) brightness(1.05)"
-              : "blur(20px) saturate(160%) brightness(1.02)",
-            border: "1px solid rgba(255, 255, 255, 0.13)",
+              ? "blur(32px) saturate(200%) brightness(1.08)"
+              : "blur(24px) saturate(180%) brightness(1.05)",
+            border: "1px solid rgba(255, 255, 255, 0.18)",
             boxShadow: isCompact
               ? [
-                  "0 0 0 1px rgba(255,255,255,0.06)",
-                  "inset 0 1px 0 rgba(255,255,255,0.22)",
-                  "inset 0 -1px 0 rgba(0,0,0,0.4)",
-                  "0 12px 36px rgba(0,0,0,0.7)",
-                  "0 32px 64px rgba(0,0,0,0.35)",
+                  "0 0 0 1px rgba(255,255,255,0.08)",
+                  "inset 0 2px 1px rgba(255,255,255,0.45)",
+                  "inset 0 -1px 0 rgba(0,0,0,0.5)",
+                  "0 14px 40px rgba(0,0,0,0.78)",
+                  "0 32px 64px rgba(0,0,0,0.4)",
                 ].join(",")
               : [
-                  "0 0 0 1px rgba(255,255,255,0.04)",
-                  "inset 0 1px 0 rgba(255,255,255,0.18)",
-                  "inset 0 -1px 0 rgba(0,0,0,0.3)",
-                  "0 10px 30px rgba(0,0,0,0.55)",
-                  "0 20px 50px rgba(0,0,0,0.25)",
+                  "0 0 0 1px rgba(255,255,255,0.06)",
+                  "inset 0 2px 1px rgba(255,255,255,0.4)",
+                  "inset 0 -1px 0 rgba(0,0,0,0.4)",
+                  "0 12px 32px rgba(0,0,0,0.6)",
+                  "0 24px 50px rgba(0,0,0,0.3)",
                 ].join(","),
           }}
         >
