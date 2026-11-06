@@ -83,8 +83,8 @@ export default function HomePage() {
   return (
     <div className="relative w-full">
       {/* ===================== HERO SECTION ===================== */}
-      <section className="relative min-h-[92vh] flex flex-col justify-center px-[var(--page-gutter)] pt-20 pb-16 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto w-full my-auto">
+      <section className="relative min-h-[92vh] flex flex-col justify-between px-[var(--page-gutter)] pt-24 sm:pt-28 pb-8 overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto w-full pt-4 pb-16 sm:pb-20">
           {/* Status Kicker Badge */}
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-chip mb-8 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
@@ -93,11 +93,11 @@ export default function HomePage() {
             </span>
           </div>
 
-          {/* Huge Typography with Glowing Neon Liquid Glass Capsule (Photo 1 Signature) */}
+          {/* Huge Typography with Glowing Neon Liquid Glass Capsule */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.035em] text-white leading-[1.05] mb-8">
             <div>I build</div>
 
-            {/* The Glowing Neon Liquid Glass Capsule (thenn.in signature 3D lens) */}
+            {/* The Glowing Neon Liquid Glass Capsule (3D optical lens) */}
             <div className="my-2 sm:my-3 inline-block">
               <span
                 className={`inline-flex items-center px-7 sm:px-10 py-2 sm:py-3.5 rounded-full font-bold tracking-tight transition-all duration-500 ${
@@ -120,7 +120,7 @@ export default function HomePage() {
             I design and build websites, web apps and systems for startups and growing businesses worldwide. An independent engineer, from the first conversation to launch.
           </p>
 
-          {/* Action Triggers (Photo 1 Signature — Liquid Glass Capsule) */}
+          {/* Action Triggers (Liquid Glass Capsule) */}
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
@@ -142,8 +142,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Infinite Marquee Ticker */}
-        <div className="relative z-10 w-full pt-20 pb-4 border-t border-white/10 overflow-hidden">
+        {/* Infinite Marquee Ticker with generous top clearance from buttons */}
+        <div className="relative z-10 w-full mt-12 sm:mt-16 pt-8 pb-4 border-t border-white/10 overflow-hidden">
           <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
             {[
               "Multi-Network Bonding",

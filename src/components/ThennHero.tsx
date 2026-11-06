@@ -123,8 +123,8 @@ export function ThennHero({ onSwitchMode }: ThennHeroProps) {
           I design and build websites, web apps and systems for startups and growing businesses worldwide. An independent engineer, from the first conversation to launch.
         </p>
 
-        {/* Action Triggers (Photo 1 Signature) */}
-        <div className="flex flex-wrap items-center gap-4">
+        {/* Action Triggers */}
+        <div className="flex flex-wrap items-center gap-4 mb-16 sm:mb-20">
           <a
             href="mailto:dhairyagajera470@gmail.com"
             className="flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-white border border-white/20 transition-all shadow-lg group"

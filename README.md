@@ -13,7 +13,7 @@
 
 ## ✦ Visual & Interaction Philosophy
 
-Inspired by the dark minimalist precision of **Thenn** and the optical depth of **iOS 27 Liquid Glassmorphism**, this portfolio combines low-level systems engineering with obsessive visual craft:
+Architected with an ultra-tactile Liquid Glassmorphism design system, multi-layered optical refraction, high-performance physics-driven micro-interactions, and 3D kinetic canvas simulations:
 
 - **Liquid Glass Capsules & Optical Refraction**: Multi-layered specular highlights (`inset 0 1.5px 0.5px rgba(255, 255, 255, 0.55)`), deep frosted background diffusion (`blur(24px) saturate(180%)`), subtle neon edge glow, and directional sheen glints.
 - **Physics-Driven Thumb Motor**: Zero-latency navigation powered directly by sub-stepped numerical spring physics ($k = 460$, $c = 32$) running on `requestAnimationFrame`. Automatically adapts to hovered items with velocity stretch ($\min(|\text{velocity}| / 3600, 0.12)$), bypassing React re-renders for instantaneous, zero-delay gliding.
@@ -59,11 +59,11 @@ Inspired by the dark minimalist precision of **Thenn** and the optical depth of 
 ```text
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx                # Root layout with dot grid, specular gleam & fonts
-│   │   ├── globals.css               # iOS 27 glass tokens, neon glow capsules, dark theme
+│   │   ├── layout.tsx                # Root layout with dot grid, specular gleam & typography
+│   │   ├── globals.css               # Liquid glass tokens, neon glow capsules, dark theme
 │   │   ├── page.tsx                  # Home page: hero typography, capabilities, FAQ
-│   │   ├── work/                     # Case studies & project grid
-│   │   │   ├── page.tsx              # Filterable portfolio showcase
+│   │   ├── work/                     # Case studies & project showcase
+│   │   │   ├── page.tsx              # Filterable engineering showcase
 │   │   │   ├── multi-network-bonding/ # Dual-WAN bonding deep-dive
 │   │   │   └── ml-inference-engine/  # PHP + UNIX socket ML bridge deep-dive
 │   │   ├── services/page.tsx         # Detailed engineering capabilities & deliverables
@@ -82,36 +82,6 @@ Inspired by the dark minimalist precision of **Thenn** and the optical depth of 
 ├── public/                           # Static assets, fonts, icons
 ├── package.json                      # Dependencies & scripts
 └── tsconfig.json                     # Strict TypeScript configuration
-```
-
----
-
-## ✦ Getting Started
-
-### Prerequisites
-- **Node.js**: v18.18.0 or newer
-- **npm** or **pnpm** / **yarn**
-
-### 1. Installation
-Clone the repository and install dependencies:
-```bash
-git clone https://github.com/dhairya-404/Portfolio.git
-cd Portfolio
-npm install
-```
-
-### 2. Development Server
-Start the Next.js development server with Turbopack:
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### 3. Production Build
-Compile optimized production assets:
-```bash
-npm run build
-npm start
 ```
 
 ---
