@@ -1,22 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Check, Copy, Menu, X } from "lucide-react";
 
+/*
+ * iOS 27 / visionOS Dynamic Island-inspired glassmorphism navbar.
+ *
+ * Scroll states:
+ *   top      (scrollY <  40)  → wide pill, full opacity, blur-md
+ *   compact  (scrollY >= 40)  → narrower pill, deepened glass, hidden email
+ *   hidden   (scrollY > 220 & scrolling DOWN) → slides out of view
+ *   revealed (scrolling UP after hidden) → snaps back as compact pill
+ *
+ * Spring transition: cubic-bezier(0.34, 1.56, 0.64, 1) gives the
+ * physical bounce that Apple uses for Dynamic Island morphing.
+ */
+
 export function Navbar() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [hidden, setHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const current = window.scrollY;
+      const prev = lastScrollY.current;
+
+      setScrollY(current);
+
+      // Hide when scrolling DOWN past 220px
+      if (current > 220 && current > prev + 4) {
+        setHidden(true);
+      }
+      // Reveal on ANY upward movement
+      if (current < prev - 2) {
+        setHidden(false);
+      }
+
+      lastScrollY.current = current;
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const copyEmail = async () => {
@@ -25,7 +55,7 @@ export function Navbar() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2400);
     } catch {
-      // Fallback
+      /* ignore */
     }
   };
 
@@ -38,36 +68,165 @@ export function Navbar() {
     { href: "/experiments", label: "Lab" },
   ];
 
+  // Derived scroll state
+  const isCompact = scrollY >= 40;
+  const isTop = scrollY < 40;
+
   return (
     <>
+      {/* ─── Floating Navbar ──────────────────────────────────────────── */}
       <header
-        className={`fixed top-4 left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300 pointer-events-none ${
-          isScrolled ? "translate-y-0" : "translate-y-1"
-        }`}
+        style={{
+          position: "fixed",
+          top: "16px",
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          display: "flex",
+          justifyContent: "center",
+          padding: "0 16px",
+          pointerEvents: "none",
+          // iOS 27 spring: slides up on hide, snaps down on reveal
+          transform: hidden ? "translateY(-110%)" : "translateY(0)",
+          transition: hidden
+            ? "transform 380ms cubic-bezier(0.4, 0, 0.2, 1)"
+            : "transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+        }}
       >
-        <div className="pointer-events-auto flex items-center justify-between w-full max-w-5xl p-1.5 sm:p-2 rounded-full glass-navbar shadow-2xl">
-          {/* Logo Brand with Teal Glowing Dot */}
+        <div
+          style={{
+            pointerEvents: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            // Spring-animated pill width
+            maxWidth: isCompact ? "720px" : "1024px",
+            width: "100%",
+            // Vertical padding shrinks when compact
+            padding: isCompact ? "6px 6px" : "8px 8px",
+            borderRadius: "9999px",
+            // Transition: spring for width/padding morph
+            transition:
+              "max-width 500ms cubic-bezier(0.34, 1.56, 0.64, 1), padding 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease, background 300ms ease, border-color 300ms ease",
+            // ── Glassmorphism layers ──
+            background: isCompact
+              ? "rgba(8, 8, 14, 0.78)"
+              : "rgba(12, 12, 20, 0.65)",
+            backdropFilter: isCompact
+              ? "blur(28px) saturate(180%)"
+              : "blur(20px) saturate(160%)",
+            WebkitBackdropFilter: isCompact
+              ? "blur(28px) saturate(180%)"
+              : "blur(20px) saturate(160%)",
+            // Multi-layer border + glow
+            border: `1px solid ${isCompact ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.1)"}`,
+            boxShadow: isCompact
+              ? [
+                  "0 0 0 0.5px rgba(255,255,255,0.1)",      // outer rim
+                  "inset 0 1px 0 rgba(255,255,255,0.18)",   // inner top rim light
+                  "inset 0 -1px 0 rgba(0,0,0,0.3)",         // inner bottom depth
+                  "0 8px 32px rgba(0,0,0,0.65)",            // main shadow
+                  "0 32px 64px rgba(0,0,0,0.35)",           // deep ambient
+                  "0 0 80px rgba(0,0,0,0.2)",               // wide soft bloom
+                ].join(",")
+              : [
+                  "0 0 0 0.5px rgba(255,255,255,0.08)",
+                  "inset 0 1px 0 rgba(255,255,255,0.14)",
+                  "0 10px 30px rgba(0,0,0,0.5)",
+                  "0 20px 50px rgba(0,0,0,0.25)",
+                ].join(","),
+            // Noise texture overlay — subtle grain on the glass
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
+          }}
+        >
+          {/* ── Logo ─────────────────────────────────── */}
           <Link
             href="/"
-            className="flex items-center gap-1.5 px-3 py-1 text-white font-bold tracking-tight text-sm sm:text-base group"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "4px 12px",
+              color: "#fff",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              fontSize: isCompact ? "13px" : "15px",
+              textDecoration: "none",
+              transition: "font-size 400ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+              whiteSpace: "nowrap",
+            }}
           >
-            <span className="group-hover:text-neutral-200 transition-colors">dhairya</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 group-hover:scale-125 transition-transform shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
+            {/* Show abbreviated "D." when compact to save pill space */}
+            <span style={{ opacity: isTop ? 1 : 0.95 }}>
+              {isCompact ? "D" : "dhairya"}
+            </span>
+            {/* Teal glowing dot — always visible */}
+            <span
+              style={{
+                display: "inline-block",
+                width: "7px",
+                height: "7px",
+                borderRadius: "50%",
+                background: "#2dd4bf",
+                boxShadow:
+                  "0 0 6px rgba(45,212,191,0.9), 0 0 14px rgba(45,212,191,0.5)",
+                flexShrink: 0,
+                transition: "transform 300ms ease",
+              }}
+            />
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 text-xs font-medium text-neutral-300">
+          {/* ── Desktop Nav Links ─────────────────────── */}
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: isCompact ? "2px" : "4px",
+              transition: "gap 400ms ease",
+            }}
+            className="hidden md:flex"
+          >
             {navLinks.map((link) => {
-              const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+              const isActive =
+                pathname === link.href ||
+                pathname.startsWith(link.href + "/");
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-1.5 rounded-full transition-all duration-200 ${
-                    isActive
-                      ? "bg-white/10 text-white font-semibold shadow-xs"
-                      : "hover:text-white hover:bg-white/5"
-                  }`}
+                  style={{
+                    padding: isCompact ? "6px 10px" : "6px 12px",
+                    borderRadius: "9999px",
+                    fontSize: isCompact ? "12px" : "13px",
+                    fontWeight: isActive ? 600 : 400,
+                    color: isActive ? "#fff" : "rgba(255,255,255,0.65)",
+                    background: isActive
+                      ? "rgba(255,255,255,0.12)"
+                      : "transparent",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    transition:
+                      "padding 400ms cubic-bezier(0.34,1.56,0.64,1), font-size 400ms ease, background 200ms ease, color 200ms ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      (e.currentTarget as HTMLAnchorElement).style.color =
+                        "#fff";
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.background = "rgba(255,255,255,0.07)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      (e.currentTarget as HTMLAnchorElement).style.color =
+                        "rgba(255,255,255,0.65)";
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.background = "transparent";
+                    }
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -75,76 +234,261 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action: Signature Start a project Button & Email Copy */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={copyEmail}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono text-neutral-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-              title="Copy email to clipboard"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-teal-400" />
-                  <span className="text-teal-400">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 opacity-60" />
-                  <span>dhairyagajera470@gmail.com</span>
-                </>
-              )}
-            </button>
+          {/* ── Right: Email + CTA + Hamburger ───────── */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            {/* Copy email — hidden when compact */}
+            {isTop && (
+              <button
+                onClick={copyEmail}
+                style={{
+                  display: "none", // shown via media query below — use className
+                  alignItems: "center",
+                  gap: "6px",
+                  padding: "6px 12px",
+                  borderRadius: "9999px",
+                  fontSize: "11px",
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  color: "rgba(255,255,255,0.45)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "color 200ms ease, background 200ms ease",
+                }}
+                className="hidden lg:flex"
+                title="Copy email"
+              >
+                {copied ? (
+                  <>
+                    <Check
+                      style={{ width: "13px", height: "13px", color: "#2dd4bf" }}
+                    />
+                    <span style={{ color: "#2dd4bf" }}>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy
+                      style={{
+                        width: "13px",
+                        height: "13px",
+                        opacity: 0.5,
+                      }}
+                    />
+                    <span>dhairyagajera470@gmail.com</span>
+                  </>
+                )}
+              </button>
+            )}
 
+            {/* Start a project CTA */}
             <Link
               href="/contact"
-              className="flex items-center gap-2 pl-3.5 pr-1.5 py-1.5 rounded-full bg-white text-neutral-950 font-medium text-xs sm:text-sm hover:bg-neutral-100 transition-all shadow-sm group cursor-pointer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                paddingLeft: isCompact ? "12px" : "14px",
+                paddingRight: "6px",
+                paddingTop: "6px",
+                paddingBottom: "6px",
+                borderRadius: "9999px",
+                background: "#ffffff",
+                color: "#0a0a0f",
+                fontWeight: 600,
+                fontSize: isCompact ? "12px" : "13px",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                transition:
+                  "padding 400ms cubic-bezier(0.34,1.56,0.64,1), font-size 400ms ease, background 200ms ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "#e8e8e8";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "#ffffff";
+              }}
             >
               <span>Start a project</span>
-              <div className="w-6 h-6 rounded-full bg-teal-400 flex items-center justify-center text-neutral-950 group-hover:translate-x-0.5 transition-transform shadow-[0_0_8px_rgba(45,212,191,0.5)]">
-                <ArrowRight className="w-3.5 h-3.5" />
-              </div>
+              <span
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderRadius: "50%",
+                  background: "#2dd4bf",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#0a0a0f",
+                  flexShrink: 0,
+                  boxShadow: "0 0 10px rgba(45,212,191,0.6)",
+                  transition: "transform 200ms ease",
+                }}
+              >
+                <ArrowRight style={{ width: "13px", height: "13px" }} />
+              </span>
             </Link>
 
-            {/* Mobile Hamburger Trigger */}
+            {/* Mobile hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-full text-neutral-300 hover:text-white hover:bg-white/10 transition-colors"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "36px",
+                height: "36px",
+                borderRadius: "50%",
+                background: "transparent",
+                border: "none",
+                color: "rgba(255,255,255,0.7)",
+                cursor: "pointer",
+                transition: "background 200ms ease, color 200ms ease",
+              }}
+              className="md:hidden"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {mobileMenuOpen ? (
+                <X style={{ width: "16px", height: "16px" }} />
+              ) : (
+                <Menu style={{ width: "16px", height: "16px" }} />
+              )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* ─── Mobile Drawer ──────────────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md md:hidden flex items-start justify-center pt-24 px-4 animate-in fade-in duration-200">
-          <div className="bg-[#0e0e14] rounded-2xl border border-white/10 p-6 w-full max-w-sm flex flex-col gap-3 shadow-2xl">
-            <div className="text-xs font-mono text-neutral-500 uppercase tracking-wider px-2">
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 40,
+            background: "rgba(0,0,0,0.6)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            paddingTop: "88px",
+            padding: "88px 16px 16px",
+          }}
+          className="md:hidden"
+        >
+          <div
+            style={{
+              // Glassmorphism drawer
+              background: "rgba(8, 8, 14, 0.9)",
+              backdropFilter: "blur(32px) saturate(160%)",
+              WebkitBackdropFilter: "blur(32px) saturate(160%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: [
+                "inset 0 1px 0 rgba(255,255,255,0.15)",
+                "0 20px 60px rgba(0,0,0,0.7)",
+              ].join(","),
+              borderRadius: "24px",
+              padding: "20px",
+              width: "100%",
+              maxWidth: "380px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "10px",
+                fontFamily: "var(--font-geist-mono), monospace",
+                color: "rgba(255,255,255,0.3)",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                padding: "0 8px 4px",
+              }}
+            >
               Navigation
             </div>
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 text-sm font-medium text-neutral-200 hover:text-white transition-colors"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "10px 12px",
+                  borderRadius: "14px",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.8)",
+                  textDecoration: "none",
+                  transition: "background 200ms ease, color 200ms ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(255,255,255,0.07)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.color =
+                    "rgba(255,255,255,0.8)";
+                }}
               >
                 <span>{link.label}</span>
-                <ArrowRight className="w-4 h-4 text-neutral-500" />
+                <ArrowRight
+                  style={{
+                    width: "14px",
+                    height: "14px",
+                    color: "rgba(255,255,255,0.3)",
+                  }}
+                />
               </Link>
             ))}
-            <div className="h-px bg-white/10 my-2" />
+
+            <div
+              style={{
+                height: "1px",
+                background: "rgba(255,255,255,0.08)",
+                margin: "4px 0",
+              }}
+            />
+
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-xl bg-white text-neutral-950 text-sm font-semibold hover:bg-neutral-200 transition-colors"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "12px 16px",
+                borderRadius: "14px",
+                background: "#ffffff",
+                color: "#0a0a0f",
+                fontSize: "14px",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "background 200ms ease",
+              }}
             >
               <span>Start a project</span>
-              <div className="w-5 h-5 rounded-full bg-teal-400 flex items-center justify-center text-neutral-950">
-                <ArrowRight className="w-3 h-3" />
-              </div>
+              <span
+                style={{
+                  width: "22px",
+                  height: "22px",
+                  borderRadius: "50%",
+                  background: "#2dd4bf",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <ArrowRight style={{ width: "12px", height: "12px" }} />
+              </span>
             </Link>
           </div>
         </div>
