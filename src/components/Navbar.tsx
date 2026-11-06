@@ -25,6 +25,38 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
 
+  // Fluid adaptive sliding glass bubble state
+  const [hoveredRect, setHoveredRect] = useState<{
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const [navHovered, setNavHovered] = useState(false);
+  const navLinksContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleLinkMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const linkEl = e.currentTarget;
+    const container = navLinksContainerRef.current;
+    if (!container) return;
+
+    const linkRect = linkEl.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    setHoveredRect({
+      left: linkRect.left - containerRect.left,
+      top: linkRect.top - containerRect.top,
+      width: linkRect.width,
+      height: linkRect.height,
+    });
+    setNavHovered(true);
+  };
+
+  const handleContainerMouseLeave = () => {
+    setNavHovered(false);
+    setHoveredRect(null);
+  };
+
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY;
@@ -79,7 +111,7 @@ export function Navbar() {
           {/* ── Brand Logo with Encased Glass Pill & Teal Glow Dot ── */}
           <Link
             href="/"
-            className="glass-nav-link flex items-center gap-1.5 text-white font-semibold tracking-tight text-sm sm:text-base mr-1 px-3 py-1.5 cursor-pointer"
+            className="flex items-center gap-1.5 text-white font-semibold tracking-tight text-sm sm:text-base mr-1 px-3 py-1.5 rounded-full hover:bg-white/[0.08] transition-all cursor-pointer"
           >
             <span>dhairya</span>
             <span
@@ -88,8 +120,40 @@ export function Navbar() {
             />
           </Link>
 
-          {/* ── Desktop Navigation Links ── */}
-          <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
+          {/* ── Desktop Navigation Links with Fluid Sliding Glass Bubble ── */}
+          <div
+            ref={navLinksContainerRef}
+            onMouseLeave={handleContainerMouseLeave}
+            className="relative hidden md:flex items-center gap-0.5 lg:gap-1"
+          >
+            {/* The Adaptive Sliding Glass Bubble Indicator */}
+            <div
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                opacity: navHovered && hoveredRect ? 1 : 0,
+                transform: hoveredRect
+                  ? `translate3d(${hoveredRect.left}px, ${hoveredRect.top}px, 0)`
+                  : "translate3d(0, 0, 0)",
+                width: hoveredRect ? `${hoveredRect.width}px` : "0px",
+                height: hoveredRect ? `${hoveredRect.height}px` : "0px",
+                background:
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                backdropFilter: "blur(20px) saturate(190%)",
+                WebkitBackdropFilter: "blur(20px) saturate(190%)",
+                border: "1px solid rgba(255, 255, 255, 0.22)",
+                boxShadow: [
+                  "0 0 0 1px rgba(255, 255, 255, 0.08)",
+                  "inset 0 1.5px 0.5px rgba(255, 255, 255, 0.65)",
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",
+                  "0 4px 16px rgba(0, 0, 0, 0.4)",
+                  "0 0 16px rgba(45, 212, 191, 0.15)",
+                ].join(","),
+                transitionProperty: "transform, width, height, opacity",
+                transitionDuration: "200ms, 200ms, 200ms, 140ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+            />
+
             {navLinks.map((link) => {
               const isActive =
                 pathname === link.href || pathname.startsWith(link.href + "/");
@@ -97,8 +161,9 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`glass-nav-link relative px-3.5 py-1.5 text-xs lg:text-[13px] font-medium tracking-tight cursor-pointer ${
-                    isActive ? "is-active text-white" : "text-white/75"
+                  onMouseEnter={handleLinkMouseEnter}
+                  className={`relative px-3.5 py-1.5 text-xs lg:text-[13px] font-medium tracking-tight rounded-full transition-colors duration-150 cursor-pointer ${
+                    isActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
                   }`}
                 >
                   <span className="relative z-10">{link.label}</span>
