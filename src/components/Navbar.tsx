@@ -18,6 +18,168 @@ import { ArrowRight, Menu, X } from "lucide-react";
  *   - Scroll UP: snaps back down with spring physics
  */
 
+/*
+ * Physics-Driven Thumb Motor (inspired by thenn.in & iOS 27)
+ * Runs directly on requestAnimationFrame with spring physics, bypassing React state
+ * for true zero-latency, fluid, non-blocking hover tracking with velocity stretch.
+ */
+function createThumbMotor(el: HTMLElement) {
+  // Springs:
+  // Position spring: k=460, c=32 (snappy, silky critically damped spring with zero latency)
+  // Lift/stretch spring: k=260, c=20
+  // Opacity spring: k=340, c=24
+  const x = { x: 0, v: 0, to: 0 };
+  const y = { x: 0, v: 0, to: 0 };
+  const w = { x: 0, v: 0, to: 0 };
+  const h = { x: 0, v: 0, to: 0 };
+  const lift = { x: 0, v: 0, to: 0 };
+  const opacity = { x: 0, v: 0, to: 0 };
+
+  let isInitialized = false;
+  let rafId = 0;
+  let lastTime = 0;
+  let isPressed = false;
+
+  const stepSpring = (
+    s: { x: number; v: number; to: number },
+    k: number,
+    c: number,
+    dt: number
+  ) => {
+    s.v += (-k * (s.x - s.to) - c * s.v) * dt;
+    s.x += s.v * dt;
+  };
+
+  const isResting = (s: { x: number; v: number; to: number }, tol = 0.05) =>
+    Math.abs(s.x - s.to) < tol && Math.abs(s.v) < 10 * tol;
+
+  const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+  const applyStyles = () => {
+    const curW = Math.max(0, w.x);
+    const curH = Math.max(0, h.x);
+    const stretch = Math.min(Math.abs(x.v) / 3600, 0.12);
+    const curLift = Math.max(0, lift.x);
+    const curOpacity = clamp01(opacity.x);
+    const scaleFactor = (1 + 0.08 * curLift) * curOpacity;
+
+    const scaleX = (scaleFactor * (1 + stretch)).toFixed(4);
+    const scaleY = (scaleFactor * (1 - 0.45 * stretch)).toFixed(4);
+
+    el.style.width = `${curW}px`;
+    el.style.height = `${curH}px`;
+    el.style.transform = `translate3d(${x.x.toFixed(2)}px, ${y.x.toFixed(2)}px, 0) scale(${scaleX}, ${scaleY})`;
+    el.style.opacity = `${curOpacity.toFixed(3)}`;
+    el.style.setProperty("--moving", clamp01(lift.x).toFixed(3));
+  };
+
+  const loop = (timestamp: number) => {
+    const dt = Math.min(0.032, lastTime ? (timestamp - lastTime) / 1000 : 1 / 60);
+    lastTime = timestamp;
+
+    // Sub-step 4 times per frame for high numerical fidelity
+    const subDt = dt / 4;
+    for (let i = 0; i < 4; i++) {
+      stepSpring(x, 460, 32, subDt);
+      stepSpring(y, 460, 32, subDt);
+      stepSpring(w, 460, 32, subDt);
+      stepSpring(h, 460, 32, subDt);
+      stepSpring(lift, 260, 20, subDt);
+      stepSpring(opacity, 340, 24, subDt);
+    }
+
+    if (!isPressed && lift.to === 1 && Math.abs(x.x - x.to) < 4 && Math.abs(w.x - w.to) < 4) {
+      lift.to = 0;
+    }
+
+    applyStyles();
+
+    if (
+      isResting(x) &&
+      isResting(y) &&
+      isResting(w) &&
+      isResting(h) &&
+      isResting(opacity) &&
+      isResting(lift, 0.01)
+    ) {
+      x.x = x.to;
+      x.v = 0;
+      y.x = y.to;
+      y.v = 0;
+      w.x = w.to;
+      w.v = 0;
+      h.x = h.to;
+      h.v = 0;
+      lift.x = lift.to;
+      lift.v = 0;
+      opacity.x = opacity.to;
+      opacity.v = 0;
+      applyStyles();
+      rafId = 0;
+      lastTime = 0;
+      return;
+    }
+
+    rafId = requestAnimationFrame(loop);
+  };
+
+  const kick = () => {
+    if (!rafId) {
+      lastTime = performance.now();
+      rafId = requestAnimationFrame(loop);
+    }
+  };
+
+  return {
+    moveTo(rect: { x: number; y: number; w: number; h: number }, animate = true) {
+      // If first entry or lens was hidden, snap instantly to link coordinates
+      const snap = !animate || !isInitialized || opacity.x < 0.05;
+      x.to = rect.x;
+      y.to = rect.y;
+      w.to = rect.w;
+      h.to = rect.h;
+      isInitialized = true;
+
+      if (snap) {
+        x.x = rect.x;
+        x.v = 0;
+        y.x = rect.y;
+        y.v = 0;
+        w.x = rect.w;
+        w.v = 0;
+        h.x = rect.h;
+        h.v = 0;
+        applyStyles();
+        return;
+      }
+
+      lift.to = 1;
+      kick();
+    },
+    show(visible: boolean, animate = true) {
+      opacity.to = visible ? 1 : 0;
+      if (!animate) {
+        opacity.x = opacity.to;
+        opacity.v = 0;
+        applyStyles();
+        return;
+      }
+      kick();
+    },
+    press(down: boolean) {
+      isPressed = down;
+      lift.to = down ? 1 : 0;
+      kick();
+    },
+    destroy() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    },
+  };
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const [isCompact, setIsCompact] = useState(false);
@@ -25,37 +187,87 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
 
-  // Fluid adaptive sliding glass bubble state
-  const [hoveredRect, setHoveredRect] = useState<{
-    left: number;
-    top: number;
-    width: number;
-    height: number;
-  } | null>(null);
-  const [navHovered, setNavHovered] = useState(false);
-  const navLinksContainerRef = useRef<HTMLDivElement>(null);
+  const navLinks = [
+    { href: "/work", label: "Work" },
+    { href: "/services", label: "Services" },
+    { href: "/about", label: "Studio" },
+    { href: "/approach", label: "Approach" },
+    { href: "/blog", label: "Journal" },
+    { href: "/experiments", label: "Lab" },
+  ];
 
-  const handleLinkMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const linkEl = e.currentTarget;
-    const container = navLinksContainerRef.current;
-    if (!container) return;
+  const activeIndex = navLinks.findIndex(
+    (l) => pathname === l.href || pathname.startsWith(l.href + "/")
+  );
 
-    const linkRect = linkEl.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
+  const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const lensRef = useRef<HTMLDivElement>(null);
+  const motorRef = useRef<ReturnType<typeof createThumbMotor> | null>(null);
 
-    setHoveredRect({
-      left: linkRect.left - containerRect.left,
-      top: linkRect.top - containerRect.top,
-      width: linkRect.width,
-      height: linkRect.height,
-    });
-    setNavHovered(true);
+  useEffect(() => {
+    if (!lensRef.current) return;
+    const motor = createThumbMotor(lensRef.current);
+    motorRef.current = motor;
+
+    if (activeIndex >= 0 && linksRef.current[activeIndex]) {
+      const el = linksRef.current[activeIndex]!;
+      motor.moveTo(
+        { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight },
+        false
+      );
+      motor.show(true, false);
+    } else {
+      motor.show(false, false);
+    }
+
+    const handleResize = () => {
+      if (activeIndex >= 0 && linksRef.current[activeIndex]) {
+        const el = linksRef.current[activeIndex]!;
+        motor.moveTo(
+          { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight },
+          false
+        );
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.fonts?.ready?.then(handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      motor.destroy();
+      motorRef.current = null;
+    };
+  }, [pathname, activeIndex]);
+
+  const handleLinkPointerEnter = (idx: number) => {
+    const motor = motorRef.current;
+    const el = linksRef.current[idx];
+    if (!motor || !el) return;
+    motor.moveTo(
+      { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight },
+      true
+    );
+    motor.show(true, true);
   };
 
-  const handleContainerMouseLeave = () => {
-    setNavHovered(false);
-    setHoveredRect(null);
+  const handleContainerPointerLeave = () => {
+    const motor = motorRef.current;
+    if (!motor) return;
+    motor.press(false);
+    if (activeIndex >= 0 && linksRef.current[activeIndex]) {
+      const el = linksRef.current[activeIndex]!;
+      motor.moveTo(
+        { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight },
+        true
+      );
+    } else {
+      motor.show(false, true);
+    }
   };
+
+  const handleLinkPointerDown = () => motorRef.current?.press(true);
+  const handleLinkPointerUp = () => motorRef.current?.press(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -79,15 +291,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const navLinks = [
-    { href: "/work", label: "Work" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "Studio" },
-    { href: "/approach", label: "Approach" },
-    { href: "/blog", label: "Journal" },
-    { href: "/experiments", label: "Lab" },
-  ];
 
   return (
     <>
@@ -120,56 +323,60 @@ export function Navbar() {
             />
           </Link>
 
-          {/* ── Desktop Navigation Links with Fluid Sliding Glass Bubble ── */}
+          {/* ── Desktop Navigation Links with Zero-Delay Fluid Physics Lens ── */}
           <div
-            ref={navLinksContainerRef}
-            onMouseLeave={handleContainerMouseLeave}
-            className="relative hidden md:flex items-center gap-0.5 lg:gap-1"
+            onPointerLeave={handleContainerPointerLeave}
+            className="relative hidden md:flex items-center"
           >
-            {/* The Adaptive Sliding Glass Bubble Indicator */}
+            {/* The Zero-Delay Fluid Physics Glass Lens */}
             <div
-              className="absolute pointer-events-none rounded-full"
+              ref={lensRef}
+              aria-hidden="true"
+              className="absolute top-0 left-0 pointer-events-none rounded-full"
               style={{
-                opacity: navHovered && hoveredRect ? 1 : 0,
-                transform: hoveredRect
-                  ? `translate3d(${hoveredRect.left}px, ${hoveredRect.top}px, 0)`
-                  : "translate3d(0, 0, 0)",
-                width: hoveredRect ? `${hoveredRect.width}px` : "0px",
-                height: hoveredRect ? `${hoveredRect.height}px` : "0px",
+                width: 0,
+                height: 0,
+                opacity: 0,
+                willChange: "transform, width, opacity",
+                transformOrigin: "50% 50%",
                 background:
-                  "linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%)",
-                backdropFilter: "blur(20px) saturate(190%)",
-                WebkitBackdropFilter: "blur(20px) saturate(190%)",
-                border: "1px solid rgba(255, 255, 255, 0.22)",
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%)",
+                backdropFilter: "blur(20px) saturate(180%)",
+                WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                border: "1px solid rgba(255, 255, 255, 0.20)",
                 boxShadow: [
-                  "0 0 0 1px rgba(255, 255, 255, 0.08)",
-                  "inset 0 1.5px 0.5px rgba(255, 255, 255, 0.65)",
-                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",
-                  "0 4px 16px rgba(0, 0, 0, 0.4)",
-                  "0 0 16px rgba(45, 212, 191, 0.15)",
+                  "0 0 0 1px rgba(255, 255, 255, 0.06)",
+                  "inset 0 1.5px 0.5px rgba(255, 255, 255, 0.55)",
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.35)",
+                  "0 4px 16px rgba(0, 0, 0, 0.35)",
+                  "0 0 14px rgba(45, 212, 191, 0.14)",
                 ].join(","),
-                transitionProperty: "transform, width, height, opacity",
-                transitionDuration: "200ms, 200ms, 200ms, 140ms",
-                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-            />
+            >
+              {/* Optical teal tick indicator dot */}
+              <span
+                className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#2dd4bf] shadow-[0_0_8px_#2dd4bf] pointer-events-none transition-opacity duration-150"
+                style={{ opacity: "calc(1 - var(--moving, 0) * 2)" }}
+              />
+            </div>
 
-            {navLinks.map((link) => {
-              const isActive =
-                pathname === link.href || pathname.startsWith(link.href + "/");
+            {navLinks.map((link, idx) => {
+              const isActive = activeIndex === idx;
               return (
                 <Link
                   key={link.href}
+                  ref={(el) => {
+                    linksRef.current[idx] = el;
+                  }}
                   href={link.href}
-                  onMouseEnter={handleLinkMouseEnter}
-                  className={`relative px-3.5 py-1.5 text-xs lg:text-[13px] font-medium tracking-tight rounded-full transition-colors duration-150 cursor-pointer ${
+                  onPointerEnter={() => handleLinkPointerEnter(idx)}
+                  onPointerDown={handleLinkPointerDown}
+                  onPointerUp={handleLinkPointerUp}
+                  className={`relative z-10 px-3.5 py-1.5 text-xs lg:text-[13px] font-medium tracking-tight rounded-full select-none cursor-pointer transition-colors duration-100 ${
                     isActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
                   }`}
                 >
                   <span className="relative z-10">{link.label}</span>
-                  {isActive && (
-                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#2dd4bf] shadow-[0_0_6px_#2dd4bf] z-10" />
-                  )}
                 </Link>
               );
             })}
