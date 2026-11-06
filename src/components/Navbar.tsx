@@ -99,8 +99,8 @@ export function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            // Spring-animated pill width
-            maxWidth: isCompact ? "720px" : "1024px",
+            // Spring-animated pill width — wider to fit content naturally
+            maxWidth: isCompact ? "860px" : "1100px",
             width: "100%",
             // Vertical padding shrinks when compact
             padding: isCompact ? "6px 6px" : "8px 8px",
@@ -140,101 +140,111 @@ export function Navbar() {
               "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
           }}
         >
-          {/* ── Logo ─────────────────────────────────── */}
-          <Link
-            href="/"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              padding: "4px 12px",
-              color: "#fff",
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              fontSize: isCompact ? "13px" : "15px",
-              textDecoration: "none",
-              transition: "font-size 400ms cubic-bezier(0.34, 1.56, 0.64, 1)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {/* Show abbreviated "D." when compact to save pill space */}
-            <span style={{ opacity: isTop ? 1 : 0.95 }}>
-              {isCompact ? "D" : "dhairya"}
-            </span>
-            {/* Teal glowing dot — always visible */}
+          {/* ── LEFT GROUP: Logo + Nav Links ───────────────────────────── */}
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            {/* Logo */}
+            <Link
+              href="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                padding: "4px 10px 4px 14px",
+                color: "#fff",
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                fontSize: isCompact ? "13px" : "14px",
+                textDecoration: "none",
+                transition: "font-size 400ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ opacity: isTop ? 1 : 0.95 }}>dhairya</span>
+              {/* Teal glowing dot */}
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  background: "#2dd4bf",
+                  boxShadow:
+                    "0 0 6px rgba(45,212,191,0.9), 0 0 14px rgba(45,212,191,0.5)",
+                  flexShrink: 0,
+                }}
+              />
+            </Link>
+
+            {/* Divider */}
             <span
               style={{
-                display: "inline-block",
-                width: "7px",
-                height: "7px",
-                borderRadius: "50%",
-                background: "#2dd4bf",
-                boxShadow:
-                  "0 0 6px rgba(45,212,191,0.9), 0 0 14px rgba(45,212,191,0.5)",
-                flexShrink: 0,
-                transition: "transform 300ms ease",
+                width: "1px",
+                height: "16px",
+                background: "rgba(255,255,255,0.12)",
+                marginRight: "4px",
               }}
+              className="hidden md:block"
             />
-          </Link>
 
-          {/* ── Desktop Nav Links ─────────────────────── */}
-          <nav
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: isCompact ? "2px" : "4px",
-              transition: "gap 400ms ease",
-            }}
-            className="hidden md:flex"
-          >
-            {navLinks.map((link) => {
-              const isActive =
-                pathname === link.href ||
-                pathname.startsWith(link.href + "/");
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  style={{
-                    padding: isCompact ? "6px 10px" : "6px 12px",
-                    borderRadius: "9999px",
-                    fontSize: isCompact ? "12px" : "13px",
-                    fontWeight: isActive ? 600 : 400,
-                    color: isActive ? "#fff" : "rgba(255,255,255,0.65)",
-                    background: isActive
-                      ? "rgba(255,255,255,0.12)"
-                      : "transparent",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    transition:
-                      "padding 400ms cubic-bezier(0.34,1.56,0.64,1), font-size 400ms ease, background 200ms ease, color 200ms ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLAnchorElement).style.color =
-                        "#fff";
-                      (
-                        e.currentTarget as HTMLAnchorElement
-                      ).style.background = "rgba(255,255,255,0.07)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLAnchorElement).style.color =
-                        "rgba(255,255,255,0.65)";
-                      (
-                        e.currentTarget as HTMLAnchorElement
-                      ).style.background = "transparent";
-                    }
-                  }}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
+            {/* Desktop Nav Links — immediately after logo */}
+            <nav
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: isCompact ? "0px" : "2px",
+                transition: "gap 400ms ease",
+              }}
+              className="hidden md:flex"
+            >
+              {navLinks.map((link) => {
+                const isActive =
+                  pathname === link.href ||
+                  pathname.startsWith(link.href + "/");
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    style={{
+                      padding: isCompact ? "5px 9px" : "5px 11px",
+                      borderRadius: "9999px",
+                      fontSize: isCompact ? "12px" : "13px",
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? "#fff" : "rgba(255,255,255,0.6)",
+                      background: isActive
+                        ? "rgba(255,255,255,0.12)"
+                        : "transparent",
+                      textDecoration: "none",
+                      whiteSpace: "nowrap",
+                      transition:
+                        "padding 400ms cubic-bezier(0.34,1.56,0.64,1), font-size 400ms ease, background 200ms ease, color 200ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color =
+                          "#fff";
+                        (
+                          e.currentTarget as HTMLAnchorElement
+                        ).style.background = "rgba(255,255,255,0.07)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        (e.currentTarget as HTMLAnchorElement).style.color =
+                          "rgba(255,255,255,0.6)";
+                        (
+                          e.currentTarget as HTMLAnchorElement
+                        ).style.background = "transparent";
+                      }
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
 
-          {/* ── Right: Email + CTA + Hamburger ───────── */}
+          {/* ── RIGHT GROUP: Email + CTA + Hamburger ─────────────────── */}
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             {/* Copy email — hidden when compact */}
             {isTop && (
