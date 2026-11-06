@@ -12,7 +12,7 @@ export default function ApproachPage() {
       title: "Understand",
       tagline: "Rigorous discovery and constraint analysis before code.",
       summary:
-        "Every project begins by interrogating physical constraints: bandwidth limits across distinct ISPs, packet loss curves, compute budgets, and database bottlenecks. We establish quantifiable performance budgets before writing a single line of architecture.",
+        "Every project begins by interrogating physical constraints: bandwidth limits across distinct ISPs, packet loss curves, compute budgets, and database bottlenecks. I establish quantifiable performance budgets before writing a single line of architecture.",
       deliverables: [
         "Network protocol and socket topology audit",
         "P95 latency and memory budget definitions",
@@ -26,7 +26,7 @@ export default function ApproachPage() {
       title: "Design",
       tagline: "Translating engineering logic into tactile, intuitive systems.",
       summary:
-        "Designing the interface hierarchy, tokens, responsive layout grids, and kinetic spring dynamics that render complex system state transparent. We design directly in code and interactive prototypes to ensure what is designed is what ships.",
+        "Designing the interface hierarchy, tokens, responsive layout grids, and kinetic spring dynamics that render complex system state transparent. I design directly in code and interactive prototypes to ensure what is designed is what ships.",
       deliverables: [
         "Token-driven design systems (strict typography, dark mode, high contrast)",
         "Interactive component prototypes matching mechanical physics",

@@ -24,7 +24,7 @@ const ARTICLES: Article[] = [
     content: [
       "In modern networking, HTTP/2 is widely celebrated for eliminating head-of-line blocking at the application stream layer. However, because HTTP/2 multiplexes all logical streams onto a single underlying TCP socket, it remains fundamentally shackled to a single operating system routing path.",
       "If you plug a workstation into high-speed fiber Ethernet while simultaneously maintaining an active 5G cellular link, HTTP/2 cannot aggregate these two physical pipes. Any packet loss on the Ethernet interface triggers TCP congestion window collapses that stall the entire HTTP/2 stream, completely ignoring the perfectly healthy 5G pipe.",
-      "By contrast, our userspace socket multiplexer treats each network interface as an independent transport conduit. By splitting incoming byte ranges and scheduling chunks based on real-time round-trip latency, we achieve true 3.8x aggregate throughput with sub-12ms automated failover.",
+      "By contrast, my userspace socket multiplexer treats each network interface as an independent transport conduit. By splitting incoming byte ranges and scheduling chunks based on real-time round-trip latency, I achieve true 3.8x aggregate throughput with sub-12ms automated failover.",
       "Conclusion: For intra-connection concurrency, HTTP/2 is sufficient. For multi-physical-interface throughput multiplication, multi-socket userspace bonding is non-negotiable.",
     ],
   },
@@ -38,7 +38,7 @@ const ARTICLES: Article[] = [
     content: [
       "The conventional industry pattern for pairing PHP with machine learning involves spinning up an external Python Flask/FastAPI cluster and routing inference calls over internal HTTP REST APIs.",
       "Under high-concurrency production load, this architecture collapses: HTTP serialization overhead, TCP three-way handshakes, and JSON parsing latency routinely inflate total request times beyond 150ms.",
-      "By deploying a local embedded Python daemon listening on a UNIX domain socket (`/tmp/model_ipc.sock`), we eliminate the entire TCP networking stack. The PHP process streams raw binary frames directly into kernel memory buffers.",
+      "By deploying a local embedded Python daemon listening on a UNIX domain socket (`/tmp/model_ipc.sock`), I eliminate the entire TCP networking stack. The PHP process streams raw binary frames directly into kernel memory buffers.",
       "The result? P95 inference latency plummeted to under 45ms, memory consumption remained pinned at a lean 48MB, and throughput surpassed 1,800 requests per second on standard hardware.",
     ],
   },
@@ -52,7 +52,7 @@ const ARTICLES: Article[] = [
     content: [
       "Cubic-bezier curves (`cubic-bezier(0.2, 0.8, 0.2, 1)`) are deterministic functions of time: they prescribe where an element should be at time t regardless of the user's velocity at the moment of release.",
       "When a user flicks an element rapidly across the screen, a time-based bezier curve abruptly arrests the element's momentum, creating an artificial, jarring visual sensation.",
-      "True mechanical spring dynamics are governed by differential equations of force: F = -k*x - c*v. By solving this second-order system via Runge-Kutta 4th order (RK4) numerical integration, our animations preserve real-world inertia.",
+      "True mechanical spring dynamics are governed by differential equations of force: F = -k*x - c*v. By solving this second-order system via Runge-Kutta 4th order (RK4) numerical integration, my animations preserve real-world inertia.",
       "The element retains the user's gesture velocity, compresses against its physical limits, and oscillates naturally to rest. Software suddenly feels tangible and alive.",
     ],
   },

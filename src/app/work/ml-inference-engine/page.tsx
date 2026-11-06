@@ -104,7 +104,7 @@ export default function MlInferenceCaseStudy() {
             The Solution: Lightweight UNIX Sockets & Pre-loaded Weights
           </h2>
           <p className="mb-4">
-            By running an embedded Python daemon daemonized locally with weights loaded permanently into memory and communicating via UNIX domain sockets, we eliminate all TCP network stack overhead.
+            By running an embedded Python daemon daemonized locally with weights loaded permanently into memory and communicating via UNIX domain sockets, I eliminate all TCP network stack overhead.
           </p>
           <ul className="space-y-3 p-6 rounded-2xl bg-white/5 border border-white/10 text-sm sm:text-base font-mono">
             <li className="flex items-start gap-3">

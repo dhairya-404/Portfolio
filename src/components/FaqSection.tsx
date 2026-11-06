@@ -19,7 +19,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "Why pair PHP with Machine Learning inference backends?",
-    a: "PHP powers over 75% of the existing web and delivers battle-tested concurrency, mature deployment lifecycles, and rapid execution. By connecting PHP to lightweight local inference micro-services or on-device model runtimes via UNIX domain sockets, we achieve under 45ms P95 classification latency without the memory footprint or complexity of monolithic Python clusters.",
+    a: "PHP powers over 75% of the existing web and delivers battle-tested concurrency, mature deployment lifecycles, and rapid execution. By connecting PHP to lightweight local inference micro-services or on-device model runtimes via UNIX domain sockets, I achieve under 45ms P95 classification latency without the memory footprint or complexity of monolithic Python clusters.",
   },
   {
     q: "What is your typical development stack and workflow?",

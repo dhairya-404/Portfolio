@@ -94,7 +94,7 @@ export function ThennHero({ onSwitchMode }: ThennHeroProps) {
       {/* Hero Typography with Glowing Purple Neon Glass Pill (Photo 1 Signature) */}
       <div className="relative z-10 max-w-5xl mx-auto w-full text-left my-auto px-4 sm:px-6 py-12">
         <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.035em] text-white leading-[1.05] mb-8">
-          <div>We build</div>
+          <div>I build</div>
 
           {/* The Glowing Purple Neon Glass Capsule */}
           <div className="my-2 sm:my-3 inline-block">
@@ -120,7 +120,7 @@ export function ThennHero({ onSwitchMode }: ThennHeroProps) {
 
         {/* Narrative Subtitle */}
         <p className="text-base sm:text-lg md:text-xl text-neutral-400 font-normal leading-relaxed max-w-2xl mb-12">
-          We design and build websites, web apps and systems for startups and growing businesses worldwide. One engineer, from the first conversation to launch.
+          I design and build websites, web apps and systems for startups and growing businesses worldwide. An independent engineer, from the first conversation to launch.
         </p>
 
         {/* Action Triggers (Photo 1 Signature) */}

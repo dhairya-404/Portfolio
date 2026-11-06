@@ -56,7 +56,7 @@ const FAQS = [
   },
   {
     q: "Why pair PHP with Machine Learning inference backends?",
-    a: "PHP powers over 75% of the existing web and delivers battle-tested concurrency, mature deployment lifecycles, and rapid execution. By connecting PHP to lightweight local inference micro-services or on-device model runtimes via UNIX domain sockets, we achieve under 45ms P95 classification latency without the memory footprint or complexity of monolithic Python clusters.",
+    a: "PHP powers over 75% of the existing web and delivers battle-tested concurrency, mature deployment lifecycles, and rapid execution. By connecting PHP to lightweight local inference micro-services or on-device model runtimes via UNIX domain sockets, I achieve under 45ms P95 classification latency without the memory footprint or complexity of monolithic Python clusters.",
   },
   {
     q: "What is your typical development stack and workflow?",
@@ -95,7 +95,7 @@ export default function HomePage() {
 
           {/* Huge Typography with Glowing Neon Liquid Glass Capsule (Photo 1 Signature) */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.035em] text-white leading-[1.05] mb-8">
-            <div>We build</div>
+            <div>I build</div>
 
             {/* The Glowing Neon Liquid Glass Capsule (thenn.in signature 3D lens) */}
             <div className="my-2 sm:my-3 inline-block">
@@ -117,7 +117,7 @@ export default function HomePage() {
 
           {/* Narrative Subtitle */}
           <p className="text-base sm:text-xl md:text-2xl text-neutral-400 font-normal leading-relaxed tracking-tight max-w-3xl mb-12">
-            We design and build websites, web apps and systems for startups and growing businesses worldwide. One engineer, from the first conversation to launch.
+            I design and build websites, web apps and systems for startups and growing businesses worldwide. An independent engineer, from the first conversation to launch.
           </p>
 
           {/* Action Triggers (Photo 1 Signature — Liquid Glass Capsule) */}
@@ -389,7 +389,7 @@ export default function HomePage() {
                 <span>Capabilities</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-                What we <span className="font-editorial-serif font-normal italic text-[#c084fc]">deliver</span>.
+                What I <span className="font-editorial-serif font-normal italic text-[#c084fc]">deliver</span>.
               </h2>
             </div>
             <Link

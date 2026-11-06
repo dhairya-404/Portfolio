@@ -9,7 +9,7 @@ const SERVICES = [
     icon: Network,
     title: "Multi-Network Bonding & Socket Systems",
     tagline: "Channel aggregation across dual interfaces for maximum throughput.",
-    desc: "We design and implement custom socket multiplexers that bond separate network connections (Ethernet + 5G/Wi-Fi) into a unified high-speed stream. Ideal for high-bandwidth data ingestion, remote telemetry, and mission-critical download acceleration.",
+    desc: "I design and implement custom socket multiplexers that bond separate network connections (Ethernet + 5G/Wi-Fi) into a unified high-speed stream. Ideal for high-bandwidth data ingestion, remote telemetry, and mission-critical download acceleration.",
     deliverables: [
       "Custom socket bonding daemon with automated link failover",
       "Dynamic chunk schedulers adapting to live interface RTT",
@@ -61,7 +61,7 @@ const SERVICES = [
     icon: Sparkles,
     title: "Creative Coding & Kinetic Micro-Interactions",
     tagline: "Tactile mathematical physics that make software feel alive.",
-    desc: "Crafting tactile physical simulations, Runge-Kutta 4th order springs, particle fields, and canvas shaders. We replace sterile cubic-bezier transitions with genuine mechanical dynamics that delight users.",
+    desc: "Crafting tactile physical simulations, Runge-Kutta 4th order springs, particle fields, and canvas shaders. I replace sterile cubic-bezier transitions with genuine mechanical dynamics that delight users.",
     deliverables: [
       "Custom physics controllers matching real-world spring mechanics",
       "Interactive prototypes designed and coded directly in production code",

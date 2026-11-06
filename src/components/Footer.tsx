@@ -48,7 +48,7 @@ export function Footer() {
         </h2>
 
         <p className="text-base sm:text-xl text-neutral-400 leading-relaxed font-normal max-w-2xl mb-8">
-          Tell me where you are and what you want to build. A founder replies within one working day—with questions, then a tailored technical proposal.
+          Tell me where you are and what you want to build. I reply within one working day—with questions, then a tailored technical proposal.
         </p>
       </div>
 
