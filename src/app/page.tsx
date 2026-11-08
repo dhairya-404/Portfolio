@@ -11,11 +11,27 @@ import {
   HelpCircle,
   Plus,
   Minus,
+  ShieldCheck,
+  Lock,
+  CheckCircle2,
 } from "lucide-react";
+
+function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
 
 const WORDS = [
   { text: "products", color: "teal" },
   { text: "brands", color: "purple" },
+  { text: "TraceLab DFIR", color: "teal" },
   { text: "network systems", color: "teal" },
   { text: "ML platforms", color: "purple" },
   { text: "socket engines", color: "teal" },
@@ -146,23 +162,21 @@ export default function HomePage() {
         <div className="relative z-10 w-full mt-12 sm:mt-16 pt-8 pb-4 border-t border-white/10 overflow-hidden">
           <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
             {[
+              "TraceLab Forensics",
+              "SHA-256 Non-Repudiation",
               "Multi-Network Bonding",
-              "Socket Multiplexing",
+              "vis-timeline DFIR",
               "Next.js 16 Turbopack",
               "React 19",
+              "PHP 8.3 & ML Triage",
               "TypeScript",
-              "PHP & ML Inference",
-              "Packet Aggregation",
+              "Socket Multiplexing",
               "Sub-50ms Latency",
               "RK4 Kinetic Physics",
               "Tailwind CSS v4",
+              "TraceLab Forensics",
               "WebSocket Telemetry",
               "Sub-millisecond IPC",
-              "Multi-Network Bonding",
-              "Socket Multiplexing",
-              "Next.js 16 Turbopack",
-              "React 19",
-              "TypeScript",
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-8 shrink-0">
                 <span className="hover:text-white transition-colors cursor-default">
@@ -250,6 +264,104 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-8">
+            {/* Project: TraceLab — Digital Activity Forensics & Incident Triage Platform */}
+            <div className="p-8 sm:p-12 rounded-3xl dark-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group border border-teal-500/20">
+              <div className="lg:col-span-7">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Digital Forensics & Incident Response · 2026</span>
+                  </span>
+                  <span className="text-xs font-mono text-neutral-400 font-bold">Tamper-Evident SHA-256 Non-Repudiation</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-teal-200 transition-colors">
+                  TraceLab — Digital Activity Forensics & Incident Triage Platform
+                </h3>
+
+                <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mb-6 font-normal">
+                  The forensic detective workbench for digital event logs. Ingests heterogeneous system logs (Windows Events, Apache, SSH, Palo Alto), generates cryptographic SHA-256 evidence digests, reconstructs synchronized timeline swimlanes, and isolates multi-stage attacks using dual-engine heuristics and scikit-learn Isolation Forests.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {["PHP 8.3 MVC", "scikit-learn ML", "SHA-256 Non-Repudiation", "vis-timeline", "DFIR Forensics", "Anomaly Detection"].map((tag) => (
+                    <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/work/tracelab"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5 cursor-pointer"
+                  >
+                    <span>View Case Study</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+
+                  <a
+                    href="https://tracelabs-ops.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm text-teal-300 hover:text-white transition-all cursor-pointer"
+                  >
+                    <span>Visit Live Platform</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+
+                  <a
+                    href="https://github.com/dhairya-404/Trace-Labs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm text-neutral-300 hover:text-white transition-all cursor-pointer"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: Forensic DFIR Telemetry Preview */}
+              <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <span className="text-neutral-400 flex items-center gap-1.5">
+                    <Lock className="w-3.5 h-3.5 text-teal-400" />
+                    <span>CHAIN OF CUSTODY</span>
+                  </span>
+                  <span className="text-teal-400 flex items-center gap-1.5 font-bold">
+                    <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                    VERIFIED EVIDENCE
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="text-[11px] text-neutral-500">SHA-256 Non-Repudiation Digest:</div>
+                  <div className="p-2.5 rounded-lg bg-black/60 border border-white/10 text-teal-300 text-[10px] break-all">
+                    7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[11px] text-neutral-300">
+                    <span>Heterogeneous Ingestion</span>
+                    <span className="text-teal-300 font-bold">4 SIEM Connectors</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 text-[10px] text-neutral-400">
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center">Windows EVTX 4624</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center">Palo Alto CEF</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center">SSH auth.log</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center">Apache Access</div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[11px] flex items-center justify-between">
+                  <span className="text-purple-300 font-bold">ML Isolation Forest:</span>
+                  <span className="text-teal-300 font-mono">94.8% Threat Suspicion</span>
+                </div>
+              </div>
+            </div>
+
             {/* Project 1: Multi-Network Bonding */}
             <div className="p-8 sm:p-12 rounded-3xl dark-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group">
               <div className="lg:col-span-7">

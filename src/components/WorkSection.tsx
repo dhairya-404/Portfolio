@@ -12,6 +12,21 @@ export function WorkSection() {
 
   const caseStudies = [
     {
+      id: "tracelab-dfir",
+      kicker: "Forensics & Incident Response",
+      title: "TraceLab — Digital activity forensics and incident triage platform",
+      description:
+        "Engineered a digital forensic detective workbench that normalizes heterogeneous system logs, generates SHA-256 non-repudiation evidence digests, reconstructs synchronized timeline swimlanes, and triages cyber attacks via hybrid rule heuristics and scikit-learn ML.",
+      tags: ["PHP 8.3 MVC", "Python & scikit-learn", "SHA-256 Non-Repudiation", "vis-timeline", "DFIR"],
+      metrics: [
+        { value: "SHA-256", label: "tamper-evident proof" },
+        { value: "< 18ms", label: "triage response time" },
+      ],
+      status: "Live in Production",
+      liveUrl: "https://tracelabs-ops.vercel.app",
+      githubUrl: "https://github.com/dhairya-404/Trace-Labs",
+    },
+    {
       id: "network-bonding",
       kicker: "Systems & Network Engineering",
       title: "Multi-network bonding and download acceleration engine",
@@ -276,7 +291,29 @@ export function WorkSection() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  {study.liveUrl && (
+                    <a
+                      href={study.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors"
+                    >
+                      <span>Live Site</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
+                    </a>
+                  )}
+                  {study.githubUrl && (
+                    <a
+                      href={study.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-neutral-800 bg-white border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-colors"
+                    >
+                      <span>GitHub</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                    </a>
+                  )}
                   <a
                     href="mailto:dhairyagajera470@gmail.com?subject=Inquiry regarding project"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-neutral-800 bg-white border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-colors"

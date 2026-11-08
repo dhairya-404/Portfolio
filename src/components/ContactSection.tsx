@@ -17,7 +17,7 @@ export function ContactSection() {
   };
 
   const socialLinks = [
-    { label: "GitHub", href: "https://github.com" },
+    { label: "GitHub", href: "https://github.com/dhairya-404" },
     { label: "LinkedIn", href: "https://linkedin.com" },
     { label: "X / Twitter", href: "https://x.com" },
     { label: "Email Dhairya", href: "mailto:dhairyagajera470@gmail.com" },

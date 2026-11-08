@@ -114,8 +114,16 @@ export function Footer() {
 
         {/* Bottom Colophon & Timestamp */}
         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-neutral-500">
-          <div>
+          <div className="flex flex-wrap items-center gap-4">
             <span>© 2026 Dhairya · Systems & Full-Stack Engineering.</span>
+            <a
+              href="https://github.com/dhairya-404"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors underline decoration-neutral-700 underline-offset-4"
+            >
+              GitHub (@dhairya-404)
+            </a>
           </div>
 
           <div className="flex items-center gap-6">
