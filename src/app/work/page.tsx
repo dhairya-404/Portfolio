@@ -98,22 +98,6 @@ const PROJECTS: Project[] = [
     ],
     caseStudyAvailable: false,
   },
-  {
-    slug: "kinetic-spring-suite",
-    title: "Runge-Kutta 4th Order (RK4) Kinetic Physics Playground",
-    category: "creative",
-    categoryLabel: "Creative Coding & Micro-Interactions",
-    year: "2026",
-    highlight: "Continuous Physical Simulations",
-    description: "A mathematical physics simulation framework modeling real-world tension, friction, and kinetic recoil in web interfaces. Replaces artificial bezier curves with true mechanical springs.",
-    tags: ["RK4 Calculus", "Canvas Shaders", "Physics Engine", "TypeScript"],
-    metrics: [
-      { label: "Integration", value: "RK4 Exact" },
-      { label: "Frame Budget", value: "16.6ms max" },
-      { label: "Sub-pixel Drift", value: "0.00px" },
-    ],
-    caseStudyAvailable: false,
-  },
 ];
 
 export default function WorkPage() {
@@ -143,7 +127,6 @@ export default function WorkPage() {
             { id: "systems", label: "Systems & Bonding" },
             { id: "ml", label: "Machine Learning" },
             { id: "fullstack", label: "Full-Stack" },
-            { id: "creative", label: "Creative Coding" },
           ].map((tab) => (
             <button
               key={tab.id}
