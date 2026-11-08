@@ -394,13 +394,25 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <Link
-                  href="/work/bondforge"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
-                >
-                  <span>Explore Prototype Case Study</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/work/bondforge"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
+                  >
+                    <span>Explore Prototype Case Study</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+
+                  <a
+                    href="https://github.com/dhairya-404/BandForge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm text-neutral-300 hover:text-white transition-all cursor-pointer"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>GitHub Repo</span>
+                  </a>
+                </div>
               </div>
 
               {/* Right: Live Interactive Telemetry Preview */}

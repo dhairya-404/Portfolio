@@ -84,6 +84,7 @@ const PROJECTS: Project[] = [
     ],
     caseStudyAvailable: true,
     isPrototype: true,
+    githubUrl: "https://github.com/dhairya-404/BandForge",
   },
   {
     slug: "ml-inference-engine",

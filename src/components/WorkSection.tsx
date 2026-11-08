@@ -38,6 +38,7 @@ export function WorkSection() {
         { value: "+340%", label: "throughput gain" },
       ],
       status: "Working Prototype",
+      githubUrl: "https://github.com/dhairya-404/BandForge",
     },
     {
       id: "php-ml-system",
