@@ -32,20 +32,33 @@ export default function MultiNetworkBondingCaseStudy() {
 
       {/* Header */}
       <div className="mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono mb-4">
-          <Network className="w-3.5 h-3.5" />
-          <span>Case Study · Systems Engineering</span>
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono">
+            <Network className="w-3.5 h-3.5" />
+            <span>Case Study · Systems Engineering</span>
+          </div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            Working Prototype
+          </span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-          Multi-Network Bonding & Download Acceleration Engine
+          BondForge — Multi-Network Bonding & Download Acceleration Engine
         </h1>
         <p className="text-lg sm:text-xl text-neutral-300 leading-relaxed font-normal">
-          Aggregating disparate network connections (Wi-Fi + Fiber Ethernet) into a unified high-throughput socket stream with automated ISP failover and zero stream corruption.
+          BondForge is a high-performance socket bonding prototype aggregating disparate network connections (Wi-Fi + Fiber Ethernet) into a unified high-throughput stream with automated ISP failover and zero stream corruption.
         </p>
       </div>
 
       {/* Metadata Pill Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl dark-card mb-16 text-xs font-mono">
+        <div>
+          <div className="text-neutral-500 uppercase tracking-wider mb-1">Status</div>
+          <div className="text-amber-300 font-bold flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            Working Prototype
+          </div>
+        </div>
         <div>
           <div className="text-neutral-500 uppercase tracking-wider mb-1">Architecture</div>
           <div className="text-white font-bold">Socket Multiplexing</div>
@@ -58,19 +71,15 @@ export default function MultiNetworkBondingCaseStudy() {
           <div className="text-neutral-500 uppercase tracking-wider mb-1">Failover</div>
           <div className="text-white font-bold">&lt; 12ms Real-time</div>
         </div>
-        <div>
-          <div className="text-neutral-500 uppercase tracking-wider mb-1">Reliability</div>
-          <div className="text-purple-400 font-bold">99.98% Zero Loss</div>
-        </div>
       </div>
 
       {/* Interactive Simulator Card */}
       <div className="p-8 rounded-3xl dark-card mb-16 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <div className="text-xs font-mono uppercase text-teal-400">Live Simulator</div>
+            <div className="text-xs font-mono uppercase text-teal-400">Live Prototype Simulator</div>
             <h3 className="text-xl font-bold text-white tracking-tight">
-              Dual-WAN Channel Aggregation Telemetry
+              BondForge Dual-WAN Channel Aggregation Telemetry
             </h3>
           </div>
           <div className="text-right">

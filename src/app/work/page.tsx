@@ -46,6 +46,7 @@ interface Project {
   caseStudyAvailable: boolean;
   liveUrl?: string;
   githubUrl?: string;
+  isPrototype?: boolean;
 }
 
 const PROJECTS: Project[] = [
@@ -68,20 +69,21 @@ const PROJECTS: Project[] = [
     githubUrl: "https://github.com/dhairya-404/Trace-Labs",
   },
   {
-    slug: "multi-network-bonding",
-    title: "Multi-Network Bonding & Download Acceleration Engine",
+    slug: "bondforge",
+    title: "BondForge — Multi-Network Bonding & Download Acceleration Engine",
     category: "systems",
     categoryLabel: "Systems & Network Bonding",
     year: "2026",
-    highlight: "3.8x Throughput Aggregation",
-    description: "Concurrent dual-WAN channel aggregation protocol. Multiplexes TCP/UDP data streams across Wi-Fi and Ethernet interfaces with automated ISP failover and sub-millisecond chunk reassembly.",
-    tags: ["C++ / Go", "Socket Multiplexing", "TCP / UDP Bonding", "Packet Schedulers", "Linux Network Stack"],
+    highlight: "Working Prototype · 3.8x Throughput Aggregation",
+    description: "Concurrent dual-WAN channel aggregation protocol prototype. Multiplexes TCP/UDP data streams across Wi-Fi and Ethernet interfaces with automated ISP failover, dynamic chunk scheduling, and sub-millisecond reassembly.",
+    tags: ["C++ / Go", "Socket Multiplexing", "TCP / UDP Bonding", "Packet Schedulers", "Linux Network Stack", "Prototype"],
     metrics: [
+      { label: "Project State", value: "Working Prototype" },
       { label: "Bandwidth Multiplier", value: "3.8x" },
-      { label: "Packet Loss", value: "0.00%" },
       { label: "Failover Time", value: "< 12ms" },
     ],
     caseStudyAvailable: true,
+    isPrototype: true,
   },
   {
     slug: "ml-inference-engine",
@@ -297,6 +299,12 @@ export default function WorkPage() {
                   <span className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono">
                     {project.categoryLabel} · {project.year}
                   </span>
+                  {project.isPrototype && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      Prototype
+                    </span>
+                  )}
                   <span className="text-xs font-mono text-neutral-400 font-bold">{project.highlight}</span>
                 </div>
 
@@ -325,7 +333,7 @@ export default function WorkPage() {
                       href={`/work/${project.slug}`}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
                     >
-                      <span>Read Full Case Study</span>
+                      <span>{project.isPrototype ? "Explore Prototype Case Study" : "Read Full Case Study"}</span>
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>
                   )}
@@ -364,9 +372,12 @@ export default function WorkPage() {
 
               {/* Metrics Showcase */}
               <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
-                <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 border-b border-white/10 pb-3 flex justify-between">
+                <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 border-b border-white/10 pb-3 flex justify-between items-center">
                   <span>Verified Telemetry</span>
-                  <span className="text-teal-400">ACTIVE</span>
+                  <span className={project.isPrototype ? "text-amber-400 font-bold flex items-center gap-1.5" : "text-teal-400 font-bold flex items-center gap-1.5"}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${project.isPrototype ? "bg-amber-400" : "bg-teal-400"} animate-pulse`} />
+                    {project.isPrototype ? "PROTOTYPE" : "ACTIVE"}
+                  </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
                   {project.metrics.map((m, mIdx) => (

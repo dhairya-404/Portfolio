@@ -31,7 +31,8 @@ function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
 const WORDS = [
   { text: "products", color: "teal" },
   { text: "brands", color: "purple" },
-  { text: "TraceLab DFIR", color: "teal" },
+  { text: "BondForge", color: "teal" },
+  { text: "TraceLab DFIR", color: "purple" },
   { text: "network systems", color: "teal" },
   { text: "ML platforms", color: "purple" },
   { text: "socket engines", color: "teal" },
@@ -162,6 +163,7 @@ export default function HomePage() {
         <div className="relative z-10 w-full mt-12 sm:mt-16 pt-8 pb-4 border-t border-white/10 overflow-hidden">
           <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
             {[
+              "BondForge Prototype",
               "TraceLab Forensics",
               "SHA-256 Non-Repudiation",
               "Multi-Network Bonding",
@@ -172,8 +174,8 @@ export default function HomePage() {
               "TypeScript",
               "Socket Multiplexing",
               "Sub-50ms Latency",
-              "RK4 Kinetic Physics",
               "Tailwind CSS v4",
+              "BondForge Prototype",
               "TraceLab Forensics",
               "WebSocket Telemetry",
               "Sub-millisecond IPC",
@@ -362,26 +364,30 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Project 1: Multi-Network Bonding */}
+            {/* Project: BondForge — Multi-Network Bonding & Download Acceleration Engine */}
             <div className="p-8 sm:p-12 rounded-3xl dark-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group">
               <div className="lg:col-span-7">
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   <span className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-mono">
                     Systems Engineering · 2026
                   </span>
-                  <span className="text-xs font-mono text-neutral-500">Dual-WAN Socket Bonding</span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    Prototype
+                  </span>
+                  <span className="text-xs font-mono text-neutral-400">Dual-WAN Socket Bonding</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-teal-200 transition-colors">
-                  Multi-Network Bonding & Download Acceleration Engine
+                  BondForge — Multi-Network Bonding & Download Acceleration Engine
                 </h3>
 
-                <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mb-6">
-                  Concurrent dual-interface channel aggregation that bonds Wi-Fi and Ethernet interfaces into a single unified virtual link. Implements dynamic chunk scheduling and sub-millisecond packet reassembly with zero stream corruption.
+                <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mb-6 font-normal">
+                  Concurrent dual-interface channel aggregation prototype that bonds Wi-Fi and Ethernet interfaces into a single unified virtual link. Implements dynamic chunk scheduling and sub-millisecond packet reassembly with zero stream corruption.
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {["C++ / Go", "Socket Multiplexing", "TCP / UDP Reassembly", "Dynamic Load Balancer"].map((tag) => (
+                  {["C++ / Go", "Socket Multiplexing", "TCP / UDP Reassembly", "Dynamic Load Balancer", "Prototype"].map((tag) => (
                     <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">
                       {tag}
                     </span>
@@ -389,10 +395,10 @@ export default function HomePage() {
                 </div>
 
                 <Link
-                  href="/work/multi-network-bonding"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-medium text-xs sm:text-sm hover:bg-neutral-200 transition-colors"
+                  href="/work/bondforge"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
                 >
-                  <span>View Case Study</span>
+                  <span>Explore Prototype Case Study</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -401,9 +407,9 @@ export default function HomePage() {
               <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
                   <span className="text-neutral-400">MULTIPLEXER STATUS</span>
-                  <span className="text-teal-400 flex items-center gap-1.5 font-bold">
-                    <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                    BONDED (3.8x)
+                  <span className="text-amber-400 flex items-center gap-1.5 font-bold">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    PROTOTYPE BONDED (3.8x)
                   </span>
                 </div>
                 <div className="space-y-3">

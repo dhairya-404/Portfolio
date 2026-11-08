@@ -28,16 +28,16 @@ export function WorkSection() {
     },
     {
       id: "network-bonding",
-      kicker: "Systems & Network Engineering",
-      title: "Multi-network bonding and download acceleration engine",
+      kicker: "Systems & Network Engineering · Prototype",
+      title: "BondForge — Multi-network bonding and download acceleration engine",
       description:
-        "Engineered a multi-interface packet aggregation and socket bonding system that stripes downloads concurrently over Wi-Fi, Ethernet, and Cellular channels. Implements dynamic chunk reassembly, adaptive TCP congestion backoff, and seamless sub-second link failover.",
-      tags: ["Socket Architecture", "Network Bonding", "TCP / UDP", "Concurrency"],
+        "Engineered an active socket bonding and packet aggregation prototype that stripes downloads concurrently over Wi-Fi, Ethernet, and Cellular channels. Implements dynamic chunk reassembly, adaptive TCP congestion backoff, and seamless sub-second link failover.",
+      tags: ["Socket Architecture", "Network Bonding", "TCP / UDP", "Concurrency", "Prototype"],
       metrics: [
+        { value: "Working", label: "Prototype Stage" },
         { value: "+340%", label: "throughput gain" },
-        { value: "0ms", label: "uninterrupted failover" },
       ],
-      status: "Active Engineering Research",
+      status: "Working Prototype",
     },
     {
       id: "php-ml-system",
