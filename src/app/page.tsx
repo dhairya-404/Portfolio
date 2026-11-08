@@ -31,14 +31,11 @@ function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 const WORDS = [
   { text: "products", color: "teal" },
-  { text: "brands", color: "purple" },
-  { text: "BondForge", color: "teal" },
-  { text: "TraceLab DFIR", color: "purple" },
-  { text: "CityConnect", color: "teal" },
-  { text: "network systems", color: "teal" },
-  { text: "ML platforms", color: "purple" },
-  { text: "socket engines", color: "teal" },
-  { text: "web apps", color: "purple" },
+  { text: "network systems", color: "purple" },
+  { text: "platforms", color: "teal" },
+  { text: "software", color: "purple" },
+  { text: "web apps", color: "teal" },
+  { text: "experiences", color: "purple" },
 ];
 
 const STATS = [
