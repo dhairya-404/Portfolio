@@ -87,6 +87,23 @@ const PROJECTS: Project[] = [
     githubUrl: "https://github.com/dhairya-404/BandForge",
   },
   {
+    slug: "cityconnect",
+    title: "CityConnect — Civic Grievance Redressal & Municipal Management Platform",
+    category: "fullstack",
+    categoryLabel: "Cross-Platform Mobile & Civic Tech",
+    year: "2026",
+    highlight: "Real-Time Grievance Lifecycle & Automated PDF Dossiers",
+    description: "Cross-platform civic governance mobile application connecting urban citizens directly with city administrative departments. Features automated pincode-to-ward geospatial resolution, Cloudinary photographic evidence uploads, admin moderation consoles, and automated vector PDF audit dossiers.",
+    tags: ["Flutter 3.x", "Dart", "Firebase Suite", "Cloudinary REST", "Vector PDF Engine", "Role-Based Access Control"],
+    metrics: [
+      { label: "Grievance Triage", value: "Real-Time Sync" },
+      { label: "Location Engine", value: "Smart Pincode & Ward" },
+      { label: "Report Generation", value: "Client-Side Vector PDF" },
+    ],
+    caseStudyAvailable: true,
+    githubUrl: "https://github.com/dhairya230508/CityConnect",
+  },
+  {
     slug: "ml-inference-engine",
     title: "Machine Learning Inference Platform with PHP IPC Bridge",
     category: "ml",

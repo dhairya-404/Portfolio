@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   Lock,
   CheckCircle2,
+  Building2,
 } from "lucide-react";
 
 function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -33,6 +34,7 @@ const WORDS = [
   { text: "brands", color: "purple" },
   { text: "BondForge", color: "teal" },
   { text: "TraceLab DFIR", color: "purple" },
+  { text: "CityConnect", color: "teal" },
   { text: "network systems", color: "teal" },
   { text: "ML platforms", color: "purple" },
   { text: "socket engines", color: "teal" },
@@ -163,18 +165,22 @@ export default function HomePage() {
         <div className="relative z-10 w-full mt-12 sm:mt-16 pt-8 pb-4 border-t border-white/10 overflow-hidden">
           <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
             {[
+              "CityConnect Mobile",
               "BondForge Prototype",
               "TraceLab Forensics",
               "SHA-256 Non-Repudiation",
               "Multi-Network Bonding",
+              "Flutter & Firebase",
               "vis-timeline DFIR",
               "Next.js 16 Turbopack",
               "React 19",
+              "Civic Grievance Engine",
               "PHP 8.3 & ML Triage",
               "TypeScript",
               "Socket Multiplexing",
               "Sub-50ms Latency",
               "Tailwind CSS v4",
+              "CityConnect Mobile",
               "BondForge Prototype",
               "TraceLab Forensics",
               "WebSocket Telemetry",
@@ -447,6 +453,98 @@ export default function HomePage() {
                 <div className="p-3 rounded-lg bg-white/5 border border-white/5 text-[11px] text-neutral-400 flex justify-between">
                   <span>Reassembly Loss: 0.00%</span>
                   <span>P95 Latency: 14ms</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Project: CityConnect — Civic Grievance Redressal & Municipal Management Platform */}
+            <div className="p-8 sm:p-12 rounded-3xl dark-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group border border-blue-500/20">
+              <div className="lg:col-span-7">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-mono flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5" />
+                    <span>Cross-Platform Mobile & Civic Tech · 2026</span>
+                  </span>
+                  <span className="text-xs font-mono text-neutral-400 font-bold">Real-Time Grievance Lifecycle & PDF Dossiers</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-blue-200 transition-colors">
+                  CityConnect — Civic Grievance Redressal & Municipal Management Platform
+                </h3>
+
+                <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mb-6 font-normal">
+                  End-to-end civic governance mobile application connecting urban citizens directly with city administrative departments. Features automated pincode-to-ward geospatial resolution, Cloudinary photographic evidence uploads, admin moderation consoles, and automated vector PDF audit dossiers.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {["Flutter 3.x", "Dart", "Cloud Firestore", "Cloudinary REST", "Vector PDF Engine", "Role-Based Auth"].map((tag) => (
+                    <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/work/cityconnect"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors shadow-lg shadow-white/5 cursor-pointer"
+                  >
+                    <span>View Case Study</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+
+                  <a
+                    href="https://github.com/dhairya230508/CityConnect"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm text-neutral-300 hover:text-white transition-all cursor-pointer"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: Municipal Command Console & Telemetry Preview */}
+              <div className="lg:col-span-5 p-6 rounded-2xl glass-terminal font-mono text-xs space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <span className="text-neutral-400 flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                    <span>MUNICIPAL DISPATCH CONSOLE</span>
+                  </span>
+                  <span className="text-blue-400 flex items-center gap-1.5 font-bold">
+                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                    REAL-TIME SYNC
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="text-[11px] text-neutral-500">Active Grievance Triage (#CC-2026-8842):</div>
+                  <div className="p-2.5 rounded-lg bg-black/60 border border-white/10 text-neutral-300 text-[11px] space-y-1">
+                    <div className="flex justify-between items-center">
+                      <span className="text-blue-300 font-bold">Main Trunk Water Burst</span>
+                      <span className="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px]">In Progress</span>
+                    </div>
+                    <div className="text-neutral-400 text-[10px]">Ward 12 (Bodakdev) · Pincode 380015 Auto-Resolved</div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[11px] text-neutral-300">
+                    <span>Department Breakdown</span>
+                    <span className="text-blue-300 font-bold">384 Total Grievances</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 text-[10px] text-neutral-400">
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center text-blue-300">Water & Sewerage (38%)</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center text-teal-300">Road Infra (31%)</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center text-purple-300">Electrical Grid (19%)</div>
+                    <div className="p-1.5 rounded bg-white/5 border border-white/5 text-center text-amber-300">Sanitation (12%)</div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-[11px] flex items-center justify-between">
+                  <span className="text-blue-300 font-bold">Audit Dossier Engine:</span>
+                  <span className="text-teal-300 font-mono">Vector A4 PDF Generated</span>
                 </div>
               </div>
             </div>

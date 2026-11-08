@@ -41,6 +41,20 @@ export function WorkSection() {
       githubUrl: "https://github.com/dhairya-404/BandForge",
     },
     {
+      id: "cityconnect",
+      kicker: "Cross-Platform Mobile & Civic Tech",
+      title: "CityConnect — Civic grievance redressal and municipal management platform",
+      description:
+        "Architected an end-to-end civic governance mobile ecosystem connecting urban citizens directly with city administrative departments. Features automated pincode-to-ward geospatial resolution, Cloudinary photographic evidence uploads, admin moderation consoles, and automated vector PDF audit dossiers.",
+      tags: ["Flutter 3.x", "Dart", "Firebase Suite", "Cloudinary REST", "Vector PDF"],
+      metrics: [
+        { value: "Instant", label: "real-time firestore sync" },
+        { value: "A4 PDF", label: "automated civic audit dossiers" },
+      ],
+      status: "Production Ready",
+      githubUrl: "https://github.com/dhairya230508/CityConnect",
+    },
+    {
       id: "php-ml-system",
       kicker: "Architecture & Machine Learning",
       title: "Hybrid predictive inference pipeline for PHP backends",
