@@ -1,5 +1,5 @@
-import MultiNetworkBondingCaseStudy from "../multi-network-bonding/page";
+import { redirect } from "next/navigation";
 
-export default function BondForgePage() {
-  return <MultiNetworkBondingCaseStudy />;
+export default function BondForgeRedirect() {
+  redirect("/work/tesso");
 }

@@ -24,10 +24,12 @@ Architected with an ultra-tactile Liquid Glassmorphism design system, multi-laye
 
 ## ✦ Engineering Focus & Featured Case Studies
 
-### 1. Multi-Network Bonding & Download Acceleration Engine
-- **Channel Aggregation**: Concurrently multiplexes TCP/UDP data streams across disparate physical interfaces (Wi-Fi + Ethernet).
+### 1. Tesso — Multi-Network Bonding & Download Acceleration Engine
+- **Channel Aggregation**: Concurrently multiplexes data streams across disparate physical interfaces (Wi-Fi + Gigabit Ethernet + 4G/5G mobile tethering).
+- **Architecture**: Electron + Vite + TypeScript desktop client using raw C FFI socket binding (`koffi`) and Windows IP source routing with $0 server cost.
 - **Userspace Schedulers**: Dynamically segments incoming byte ranges and schedules chunks based on live interface round-trip times (RTT).
-- **Metrics**: **3.8x** aggregate throughput multiplier, **0.00%** packet loss, sub-12ms automated failover.
+- **Metrics**: **3.8x** aggregate throughput multiplier, **0.00%** stream corruption, sub-12ms automated link failover.
+- **Repository**: [dhairya-404/Tesso](https://github.com/dhairya-404/Tesso)
 
 ### 2. Machine Learning Inference Platform with PHP IPC Bridge
 - **Overcoming Monolith Overhead**: Spawns an embedded local Python daemon with weights permanently resident in memory, communicating directly with PHP web workers via UNIX domain sockets (`/tmp/model_ipc.sock`).

@@ -28,17 +28,17 @@ export function WorkSection() {
     },
     {
       id: "network-bonding",
-      kicker: "Systems & Network Engineering · Prototype",
-      title: "BondForge — Multi-network bonding and download acceleration engine",
+      kicker: "Systems & Network Engineering · Desktop Client",
+      title: "Tesso — Multi-network bonding and download acceleration engine",
       description:
-        "Engineered an active socket bonding and packet aggregation prototype that stripes downloads concurrently over Wi-Fi, Ethernet, and Cellular channels. Implements dynamic chunk reassembly, adaptive TCP congestion backoff, and seamless sub-second link failover.",
-      tags: ["Socket Architecture", "Network Bonding", "TCP / UDP", "Concurrency", "Prototype"],
+        "Engineered an active socket bonding and multi-network desktop client that stripes downloads concurrently over Wi-Fi, Ethernet, and 4G/5G Cellular channels. Leverages C FFI socket binding (`koffi`), Windows IP routing, dynamic byte-range reassembly, and zero server infrastructure cost.",
+      tags: ["Electron", "Vite & TypeScript", "C FFI (koffi)", "Windows Source Routing", "Socket Architecture"],
       metrics: [
-        { value: "Working", label: "Prototype Stage" },
+        { value: "Working", label: "Client Stage" },
         { value: "+340%", label: "throughput gain" },
       ],
-      status: "Working Prototype",
-      githubUrl: "https://github.com/dhairya-404/BandForge",
+      status: "Working Client",
+      githubUrl: "https://github.com/dhairya-404/Tesso",
     },
     {
       id: "cityconnect",

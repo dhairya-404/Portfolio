@@ -163,7 +163,7 @@ export default function HomePage() {
           <div className="animate-marquee flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
             {[
               "CityConnect Mobile",
-              "BondForge Prototype",
+              "Tesso Prototype",
               "TraceLab Forensics",
               "SHA-256 Non-Repudiation",
               "Multi-Network Bonding",
@@ -178,7 +178,7 @@ export default function HomePage() {
               "Sub-50ms Latency",
               "Tailwind CSS v4",
               "CityConnect Mobile",
-              "BondForge Prototype",
+              "Tesso Prototype",
               "TraceLab Forensics",
               "WebSocket Telemetry",
               "Sub-millisecond IPC",
@@ -367,7 +367,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Project: BondForge — Multi-Network Bonding & Download Acceleration Engine */}
+            {/* Project: Tesso — Multi-Network Bonding & Download Acceleration Engine */}
             <div className="p-8 sm:p-12 rounded-3xl dark-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group">
               <div className="lg:col-span-7">
                 <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -376,21 +376,21 @@ export default function HomePage() {
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(245,158,11,0.25)]">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    Prototype
+                    Working Client
                   </span>
-                  <span className="text-xs font-mono text-neutral-400">Dual-WAN Socket Bonding</span>
+                  <span className="text-xs font-mono text-neutral-400">Multi-Interface Aggregation</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4 group-hover:text-teal-200 transition-colors">
-                  BondForge — Multi-Network Bonding & Download Acceleration Engine
+                  Tesso — Multi-Network Bonding & Download Acceleration Engine
                 </h3>
 
                 <p className="text-neutral-400 leading-relaxed text-sm sm:text-base mb-6 font-normal">
-                  Concurrent dual-interface channel aggregation prototype that bonds Wi-Fi and Ethernet interfaces into a single unified virtual link. Implements dynamic chunk scheduling and sub-millisecond packet reassembly with zero stream corruption.
+                  Multi-network aggregation desktop client that bonds Wi-Fi, Ethernet, and 4G/5G mobile tethering into a unified high-throughput stream. Leverages C FFI socket binding (`koffi`), Windows IP routing, and dynamic byte-range chunking with $0 server cost.
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {["C++ / Go", "Socket Multiplexing", "TCP / UDP Reassembly", "Dynamic Load Balancer", "Prototype"].map((tag) => (
+                  {["Electron", "Vite & TypeScript", "C FFI (koffi)", "Windows Source Routing", "Socket Multiplexing", "Zero-Cost Infra"].map((tag) => (
                     <span key={tag} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">
                       {tag}
                     </span>
@@ -399,15 +399,15 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
-                    href="/work/bondforge"
+                    href="/work/tesso"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
                   >
-                    <span>Explore Prototype Case Study</span>
+                    <span>Explore Case Study</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
 
                   <a
-                    href="https://github.com/dhairya-404/BandForge"
+                    href="https://github.com/dhairya-404/Tesso"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="glass-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm text-neutral-300 hover:text-white transition-all cursor-pointer"

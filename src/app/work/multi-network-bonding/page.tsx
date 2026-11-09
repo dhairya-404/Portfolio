@@ -55,16 +55,16 @@ export default function MultiNetworkBondingCaseStudy() {
           </span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-          BondForge — Multi-Network Bonding & Download Acceleration Engine
+          Tesso — Multi-Network Bonding & Download Acceleration Engine
         </h1>
         <p className="text-lg sm:text-xl text-neutral-300 leading-relaxed font-normal mb-6">
-          BondForge is a high-performance socket bonding prototype aggregating disparate network connections (Wi-Fi + Fiber Ethernet) into a unified high-throughput stream with automated ISP failover and zero stream corruption.
+          Tesso is a high-performance socket bonding desktop client aggregating disparate network connections (Wi-Fi + Fiber Ethernet + 4G/5G Tethering) into a unified high-throughput stream with automated ISP failover and zero stream corruption.
         </p>
 
         {/* GitHub Repository CTA */}
         <div className="flex flex-wrap items-center gap-3">
           <a
-            href="https://github.com/dhairya-404/BandForge"
+            href="https://github.com/dhairya-404/Tesso"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-neutral-950 font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-colors cursor-pointer shadow-lg shadow-white/5"
@@ -74,7 +74,7 @@ export default function MultiNetworkBondingCaseStudy() {
             <ArrowUpRight className="w-4 h-4" />
           </a>
           <span className="text-xs font-mono text-neutral-400">
-            Repository: dhairya-404/BandForge
+            Repository: dhairya-404/Tesso
           </span>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function MultiNetworkBondingCaseStudy() {
           <div>
             <div className="text-xs font-mono uppercase text-teal-400">Live Prototype Simulator</div>
             <h3 className="text-xl font-bold text-white tracking-tight">
-              BondForge Dual-WAN Channel Aggregation Telemetry
+              Tesso Dual-WAN Channel Aggregation Telemetry
             </h3>
           </div>
           <div className="text-right">
