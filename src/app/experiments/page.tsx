@@ -1,7 +1,51 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { ShieldAlert, Sparkles } from "lucide-react";
+
+interface TelemetryEvent {
+  id: string;
+  timestamp: string;
+  sourceIp: string;
+  vector: string;
+  anomalyScore: number;
+  digest: string;
+}
+
+const INITIAL_TELEMETRY: TelemetryEvent[] = [
+  {
+    id: "evt-101",
+    timestamp: "17:54:02.118",
+    sourceIp: "10.0.4.12",
+    vector: "HTTPS Healthcheck /api/status",
+    anomalyScore: 0.16,
+    digest: "sha256:9f84b2c1...e73a",
+  },
+  {
+    id: "evt-102",
+    timestamp: "17:54:09.440",
+    sourceIp: "185.220.101.47",
+    vector: "SSH Auth Burst (64 failed keys / 2s)",
+    anomalyScore: 0.91,
+    digest: "sha256:4a10f9d8...b219",
+  },
+  {
+    id: "evt-103",
+    timestamp: "17:54:15.803",
+    sourceIp: "10.0.4.28",
+    vector: "PostgreSQL Automated Vacuum",
+    anomalyScore: 0.23,
+    digest: "sha256:7d31c8e2...04fa",
+  },
+  {
+    id: "evt-104",
+    timestamp: "17:54:22.019",
+    sourceIp: "45.148.10.92",
+    vector: "Unusual Outbound Payload (412MB / port 8443)",
+    anomalyScore: 0.87,
+    digest: "sha256:2c67e5a9...91dc",
+  },
+];
 
 export default function ExperimentsPage() {
   // RK4 Spring Simulator State
@@ -11,10 +55,14 @@ export default function ExperimentsPage() {
   const [nodePos, setNodePos] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
-  // Bonding Simulator State
+  // Tesso Multi-Network Bonding Simulator State
   const [ethChannels, setEthChannels] = useState(4);
   const [packetLoss, setPacketLoss] = useState(0.2);
-  const [simSpeed, setSimSpeed] = useState(1480);
+  const simSpeed = Math.round(ethChannels * 380 * (1 - packetLoss / 100));
+
+  // TraceLabs Isolation Forest Anomaly Sandbox State
+  const [threshold, setThreshold] = useState(0.65);
+  const [events, setEvents] = useState<TelemetryEvent[]>(INITIAL_TELEMETRY);
 
   // RK4 spring physics loop
   useEffect(() => {
@@ -53,11 +101,24 @@ export default function ExperimentsPage() {
     }
   };
 
-  const recomputeBonding = () => {
-    const raw = ethChannels * 380;
-    const effective = Math.round(raw * (1 - packetLoss / 100));
-    setSimSpeed(effective);
+  const injectEvent = (vector: string, sourceIp: string, anomalyScore: number) => {
+    const now = new Date();
+    const timestamp = now.toTimeString().slice(0, 8) + "." + String(now.getMilliseconds()).padStart(3, "0");
+    const randomHex = Math.floor(Math.random() * 0xffffffff)
+      .toString(16)
+      .padStart(8, "0");
+    const newEvent: TelemetryEvent = {
+      id: `evt-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      sourceIp,
+      vector,
+      anomalyScore,
+      digest: `sha256:${randomHex}...${randomHex.slice(0, 4)}`,
+    };
+    setEvents((prev) => [newEvent, ...prev].slice(0, 6));
   };
+
+  const flaggedCount = events.filter((e) => e.anomalyScore >= threshold).length;
 
   return (
     <div className="py-24 px-[var(--page-gutter)] max-w-7xl mx-auto w-full">
@@ -65,13 +126,13 @@ export default function ExperimentsPage() {
       <div className="mb-20">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-teal-400 mb-4">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Interactive Engineering Lab</span>
+          <span>Interactive AI &amp; Systems Lab</span>
         </div>
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6">
           Creative <span className="font-editorial-serif font-normal italic text-[#c084fc]">play</span>.
         </h1>
         <p className="text-lg sm:text-xl text-neutral-300 max-w-2xl leading-relaxed font-normal">
-          Direct in-code interactive prototypes. Test socket multiplexing algorithms and Runge-Kutta 4th order mechanical spring physics live.
+          Direct in-code interactive prototypes. Test Tesso socket multiplexing algorithms, TraceLabs Isolation Forest anomaly triage thresholds, and RK4 mechanical spring physics live.
         </p>
       </div>
 
@@ -167,13 +228,13 @@ export default function ExperimentsPage() {
           </div>
         </div>
 
-        {/* Lab Experiment 2: Socket Multiplexing Tuner */}
+        {/* Lab Experiment 2: Tesso Socket Multiplexing Tuner */}
         <div className="p-8 sm:p-12 rounded-3xl dark-card space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
             <div>
-              <div className="text-xs font-mono text-teal-400 uppercase">Experiment 02</div>
+              <div className="text-xs font-mono text-teal-400 uppercase">Experiment 02 · Tesso Engine</div>
               <h2 className="text-2xl font-bold text-white tracking-tight">
-                Multi-Network Socket Multiplexer Dynamic Tuner
+                Tesso Multi-Network Socket Multiplexer Dynamic Tuner
               </h2>
             </div>
             <div className="text-2xl font-mono text-teal-300 font-bold">
@@ -182,7 +243,7 @@ export default function ExperimentsPage() {
           </div>
 
           <p className="text-sm sm:text-base text-neutral-300 font-normal leading-relaxed">
-            Adjust concurrent socket channels and synthetic packet loss to view the algorithm&apos;s adaptive throughput aggregation and failover recalculation.
+            Adjust concurrent C FFI socket channels and synthetic packet loss to observe Tesso&apos;s real-time adaptive throughput aggregation and failover recalculation.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 font-mono text-xs">
@@ -196,10 +257,7 @@ export default function ExperimentsPage() {
                 min="1"
                 max="8"
                 value={ethChannels}
-                onChange={(e) => {
-                  setEthChannels(Number(e.target.value));
-                  recomputeBonding();
-                }}
+                onChange={(e) => setEthChannels(Number(e.target.value))}
                 className="w-full accent-teal-400 cursor-pointer"
               />
             </div>
@@ -215,10 +273,7 @@ export default function ExperimentsPage() {
                 max="5"
                 step="0.1"
                 value={packetLoss}
-                onChange={(e) => {
-                  setPacketLoss(Number(e.target.value));
-                  recomputeBonding();
-                }}
+                onChange={(e) => setPacketLoss(Number(e.target.value))}
                 className="w-full accent-teal-400 cursor-pointer"
               />
             </div>
@@ -227,6 +282,121 @@ export default function ExperimentsPage() {
           <div className="p-4 rounded-xl bg-black/60 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono text-neutral-400">
             <span>Buffer Allocation: {ethChannels * 128} KB Ring Buffer</span>
             <span className="text-teal-400">Zero Socket Overflow</span>
+          </div>
+        </div>
+
+        {/* Lab Experiment 3: TraceLabs Isolation Forest Anomaly Sandbox */}
+        <div className="p-8 sm:p-12 rounded-3xl dark-card space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div>
+              <div className="text-xs font-mono text-amber-400 uppercase flex items-center gap-1.5">
+                <ShieldAlert className="w-3.5 h-3.5" />
+                <span>Experiment 03 · TraceLabs ML Core</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white tracking-tight">
+                Isolation Forest Anomaly Triage &amp; Non-Repudiation Sandbox
+              </h2>
+            </div>
+            <div className="text-right font-mono">
+              <div className="text-2xl text-amber-300 font-bold">
+                {flaggedCount} / {events.length} Flagged
+              </div>
+              <div className="text-xs text-neutral-400">Decision Threshold &tau; = {threshold.toFixed(2)}</div>
+            </div>
+          </div>
+
+          <p className="text-sm sm:text-base text-neutral-300 font-normal leading-relaxed">
+            Simulate unsupervised tree-based isolation scoring over normalized security logs. Tune the anomaly contamination boundary or inject synthetic attack vectors to watch TraceLabs isolate malicious bursts and bind cryptographic SHA-256 evidence digests.
+          </p>
+
+          {/* Threshold Slider & Synthetic Log Injectors */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center font-mono text-xs">
+            <div className="lg:col-span-5">
+              <div className="flex justify-between text-neutral-300 mb-2">
+                <span>Isolation Decision Boundary (&tau;)</span>
+                <span className="text-amber-400 font-bold">{threshold.toFixed(2)}</span>
+              </div>
+              <input
+                type="range"
+                min="0.40"
+                max="0.95"
+                step="0.01"
+                value={threshold}
+                onChange={(e) => setThreshold(Number(e.target.value))}
+                className="w-full accent-amber-400 cursor-pointer"
+              />
+            </div>
+
+            <div className="lg:col-span-7 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => injectEvent("SYN Flood Port Sweep (ports 1-1024)", "194.26.135.81", 0.89)}
+                className="px-3.5 py-2 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 transition-colors cursor-pointer"
+              >
+                + Inject Port Scan
+              </button>
+              <button
+                type="button"
+                onClick={() => injectEvent("Credential Stuffing Burst (/oauth/token)", "91.132.147.204", 0.94)}
+                className="px-3.5 py-2 rounded-full bg-red-500/15 border border-red-500/40 text-red-300 hover:bg-red-500/25 transition-colors cursor-pointer"
+              >
+                + Inject Brute Force
+              </button>
+              <button
+                type="button"
+                onClick={() => injectEvent("Routine Telemetry Sync (cron.daily)", "10.0.4.19", 0.19)}
+                className="px-3.5 py-2 rounded-full bg-teal-500/15 border border-teal-500/40 text-teal-300 hover:bg-teal-500/25 transition-colors cursor-pointer"
+              >
+                + Inject Normal Traffic
+              </button>
+            </div>
+          </div>
+
+          {/* Live Triage Event Stream */}
+          <div className="space-y-3 font-mono text-xs">
+            {events.map((evt) => {
+              const isAnomaly = evt.anomalyScore >= threshold;
+              return (
+                <div
+                  key={evt.id}
+                  className={`p-4 rounded-xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                    isAnomaly
+                      ? "bg-amber-500/10 border-amber-500/40 text-amber-100"
+                      : "bg-black/50 border-white/10 text-neutral-300"
+                  }`}
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                          isAnomaly
+                            ? "bg-amber-400 text-neutral-950"
+                            : "bg-white/10 text-neutral-400"
+                        }`}
+                      >
+                        {isAnomaly ? "ANOMALY" : "BENIGN"}
+                      </span>
+                      <span className="text-neutral-400">{evt.timestamp}</span>
+                      <span className="text-white font-semibold">{evt.sourceIp}</span>
+                    </div>
+                    <div className="text-neutral-200">{evt.vector}</div>
+                  </div>
+
+                  <div className="flex items-center gap-4 shrink-0">
+                    <div className="text-neutral-500 hidden md:block">{evt.digest}</div>
+                    <div
+                      className={`font-bold px-3 py-1 rounded-lg border ${
+                        isAnomaly
+                          ? "border-amber-400/40 bg-amber-500/20 text-amber-300"
+                          : "border-white/10 bg-white/5 text-teal-400"
+                      }`}
+                    >
+                      score: {evt.anomalyScore.toFixed(2)}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

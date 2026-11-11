@@ -23,25 +23,27 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Dhairya — Systems Developer & Full-Stack Engineer",
+  title: "Dhairya — AI & Systems Security Engineer",
   description:
-    "Personal engineering studio and portfolio of Dhairya — showcasing multi-network bonding protocols, machine learning backends, full-stack Next.js architecture, and creative coding.",
+    "Engineering portfolio of Dhairya — specializing in applied machine learning anomaly detection (TraceLabs DFIR), low-level C FFI socket multiplexing (Tesso), and resilient systems architecture.",
   keywords: [
     "Dhairya",
-    "Systems Engineer",
-    "Full-Stack Developer",
+    "AI Engineer",
+    "Cybersecurity",
+    "DFIR",
+    "Isolation Forest",
+    "TraceLabs",
+    "Tesso",
     "Multi-Network Bonding",
     "Socket Multiplexing",
-    "PHP Machine Learning",
     "Next.js 16",
-    "Turbopack",
     "TypeScript",
   ],
   authors: [{ name: "Dhairya", url: "mailto:dhairyagajera470@gmail.com" }],
   openGraph: {
-    title: "Dhairya — Systems Developer & Full-Stack Engineer",
+    title: "Dhairya — AI & Systems Security Engineer",
     description:
-      "Engineering high-throughput network architectures, machine learning backends, and tactile digital products with obsessive craft.",
+      "Bridging applied machine learning threat detection with low-level OS network architectures and tactile systems engineering.",
     type: "website",
   },
 };
