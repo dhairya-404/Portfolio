@@ -1,26 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
   ArrowUpRight,
   ShieldCheck,
   CheckCircle2,
-  Activity,
   Layers,
-  Search,
   Lock,
-  Cpu,
-  AlertTriangle,
   RefreshCw,
   Building2,
   FileText,
   MapPin,
   Camera,
   Bell,
-  Sliders,
-  Send,
   Users,
 } from "lucide-react";
 
@@ -120,6 +114,17 @@ export default function CityConnectCaseStudy() {
   const [totalResolved, setTotalResolved] = useState(148);
   const [showPdfModal, setShowPdfModal] = useState(false);
 
+  useEffect(() => {
+    if (!showPdfModal) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowPdfModal(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showPdfModal]);
+
   const handleSelectComplaint = (c: CivicComplaint) => {
     setSelectedComplaint(c);
     setCurrentStatus(c.status);
@@ -135,6 +140,25 @@ export default function CityConnectCaseStudy() {
       setCurrentStatus("Pending");
     }
   };
+
+  const evidenceFilename = selectedComplaint.evidenceAsset.split("/").pop() ?? "evidence.jpg";
+
+  const liveTimeline =
+    currentStatus === selectedComplaint.status
+      ? selectedComplaint.timeline
+      : [
+          ...selectedComplaint.timeline,
+          {
+            time: "LIVE",
+            stage:
+              currentStatus === "In Progress"
+                ? "Status -> In Progress & Municipal Crew Assigned"
+                : currentStatus === "Resolved"
+                  ? "Status -> Resolved & Vector PDF Audit Sealed"
+                  : "Status -> Reopened to Pending Triage Queue",
+            actor: "Simulated Admin Console",
+          },
+        ];
 
   return (
     <article className="py-24 px-[var(--page-gutter)] max-w-5xl mx-auto w-full">
@@ -314,7 +338,9 @@ export default function CityConnectCaseStudy() {
                 <Camera className="w-3 h-3 text-purple-400" />
                 <span>Media Proof</span>
               </div>
-              <div className="text-purple-300 font-bold truncate mt-0.5">Cloudinary CDN Verified</div>
+              <div className="text-purple-300 font-bold truncate mt-0.5" title={selectedComplaint.evidenceAsset}>
+                {evidenceFilename}
+              </div>
             </div>
             <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
               <div className="text-neutral-500">Resolved Total</div>
@@ -333,13 +359,19 @@ export default function CityConnectCaseStudy() {
             </div>
 
             <div className="space-y-2">
-              {selectedComplaint.timeline.map((event, idx) => (
+              {liveTimeline.map((event, idx) => (
                 <div
-                  key={idx}
-                  className="p-2.5 rounded-lg bg-black/40 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]"
+                  key={`${event.time}-${idx}`}
+                  className={`p-2.5 rounded-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] ${
+                    event.time === "LIVE"
+                      ? "bg-blue-500/10 border-blue-500/40"
+                      : "bg-black/40 border-white/10"
+                  }`}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-blue-400 font-bold">{event.time}</span>
+                    <span className={event.time === "LIVE" ? "text-emerald-400 font-bold" : "text-blue-400 font-bold"}>
+                      {event.time}
+                    </span>
                     <span className="text-neutral-600">|</span>
                     <span className="text-neutral-200">{event.stage}</span>
                   </div>
@@ -512,16 +544,27 @@ export default function CityConnectCaseStudy() {
 
       {/* PDF Preview Modal */}
       {showPdfModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl bg-[#0d1117] border border-blue-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-4">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cityconnect-pdf-modal-title"
+          onClick={() => setShowPdfModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl bg-[#0d1117] border border-blue-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-4"
+          >
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <div className="flex items-center gap-2 text-blue-400 font-mono text-sm">
+              <div id="cityconnect-pdf-modal-title" className="flex items-center gap-2 text-blue-400 font-mono text-sm">
                 <FileText className="w-4 h-4" />
                 <span>Generated Municipal Audit Dossier (A4 Layout)</span>
               </div>
               <button
+                type="button"
+                aria-label="Close dossier preview"
                 onClick={() => setShowPdfModal(false)}
-                className="text-neutral-400 hover:text-white text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10"
+                className="text-neutral-400 hover:text-white text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 cursor-pointer"
               >
                 Close ✕
               </button>
@@ -531,13 +574,15 @@ export default function CityConnectCaseStudy() {
               <div className="text-center border-b pb-3">
                 <h4 className="text-base font-bold text-neutral-950 uppercase">Municipal Corporation of CityConnect</h4>
                 <p className="text-neutral-500 text-[10px]">Official Grievance Audit & Action-Taken Dossier</p>
-                <p className="text-neutral-400 text-[9px] mt-1">Generated: 08 Nov 2026 · Scope: All Active Municipal Wards</p>
+                <p className="text-neutral-400 text-[9px] mt-1">
+                  Active Jurisdiction: {selectedComplaint.city} · Scope: All Active Municipal Wards
+                </p>
               </div>
 
               <div className="grid grid-cols-4 gap-2 text-center py-2 bg-neutral-100 rounded-lg">
                 <div>
                   <div className="text-[10px] text-neutral-500">Total Registered</div>
-                  <div className="font-bold text-sm text-neutral-900">384</div>
+                  <div className="font-bold text-sm text-neutral-900">{236 + totalResolved}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-amber-600">Pending Review</div>
@@ -549,19 +594,33 @@ export default function CityConnectCaseStudy() {
                 </div>
                 <div>
                   <div className="text-[10px] text-emerald-600">Resolved</div>
-                  <div className="font-bold text-sm text-emerald-600">253</div>
+                  <div className="font-bold text-sm text-emerald-600">{totalResolved}</div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <div className="font-bold text-[11px] uppercase tracking-wider text-neutral-700">Sample Dossier Entries:</div>
+                <div className="font-bold text-[11px] uppercase tracking-wider text-neutral-700">Active & Recent Dossier Entries:</div>
                 <div className="p-2 border rounded bg-neutral-50 text-[10px] space-y-1">
                   <div className="flex justify-between font-bold">
-                    <span>#CC-2026-8842 · Water Supply</span>
-                    <span className="text-blue-600">IN PROGRESS</span>
+                    <span>#{selectedComplaint.id} · {selectedComplaint.department}</span>
+                    <span
+                      className={
+                        currentStatus === "Resolved"
+                          ? "text-emerald-600"
+                          : currentStatus === "In Progress"
+                            ? "text-blue-600"
+                            : "text-amber-600"
+                      }
+                    >
+                      {currentStatus.toUpperCase()}
+                    </span>
                   </div>
-                  <div className="text-neutral-600">Location: Ward 12 (Bodakdev) · Pincode: 380015</div>
-                  <div className="text-neutral-500 text-[9px]">Proof: Cloudinary Verified · Assigned: Municipal Water Dept</div>
+                  <div className="text-neutral-600">
+                    Location: {selectedComplaint.ward} · Pincode: {selectedComplaint.pincode}
+                  </div>
+                  <div className="text-neutral-500 text-[9px]">
+                    Proof: {evidenceFilename} · Cloudinary Verified
+                  </div>
                 </div>
                 <div className="p-2 border rounded bg-neutral-50 text-[10px] space-y-1">
                   <div className="flex justify-between font-bold">
@@ -581,6 +640,7 @@ export default function CityConnectCaseStudy() {
 
             <div className="flex justify-end gap-2 pt-2">
               <button
+                type="button"
                 onClick={() => setShowPdfModal(false)}
                 className="px-4 py-2 rounded-full bg-blue-500 text-white font-mono text-xs font-semibold hover:bg-blue-600 transition-colors cursor-pointer"
               >

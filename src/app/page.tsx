@@ -13,7 +13,6 @@ import {
   Minus,
   ShieldCheck,
   Lock,
-  CheckCircle2,
   Building2,
 } from "lucide-react";
 
