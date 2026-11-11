@@ -141,18 +141,25 @@ export default function WorkPage() {
   const [filter, setFilter] = useState<string>("all");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const syncFromUrl = () => {
       const hash = window.location.hash.replace("#", "");
       if (["systems", "ml", "fullstack", "creative", "all"].includes(hash)) {
         setFilter(hash);
-      } else {
-        const params = new URLSearchParams(window.location.search);
-        const f = params.get("filter") || params.get("category");
-        if (f && ["systems", "ml", "fullstack", "creative", "all"].includes(f)) {
-          setFilter(f);
-        }
+        return;
       }
-    }
+      const params = new URLSearchParams(window.location.search);
+      const f = params.get("filter") || params.get("category");
+      if (f && ["systems", "ml", "fullstack", "creative", "all"].includes(f)) {
+        setFilter(f);
+      }
+    };
+
+    const rafId = requestAnimationFrame(syncFromUrl);
+    window.addEventListener("hashchange", syncFromUrl);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("hashchange", syncFromUrl);
+    };
   }, []);
 
   const handleFilterChange = (id: string) => {
