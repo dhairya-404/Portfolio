@@ -36,11 +36,6 @@ Architected with an ultra-tactile Liquid Glassmorphism design system, multi-laye
 - **Zero TCP Stack Penalty**: Eliminates HTTP three-way handshakes and serialization lag.
 - **Metrics**: Under **45ms** P95 inference latency, **48MB** stable memory footprint, **1,840 req/s** throughput.
 
-### 3. High-Frequency Telemetry Control Room
-- **Real-Time Telemetry**: Real-time operations dashboard streaming concurrent socket streams via low-latency WebSockets at 60fps with zero layout shift.
-
-### 4. Runge-Kutta 4th Order (RK4) Kinetic Physics Suite
-- **Mechanical Dynamics**: Implements exact Runge-Kutta numerical integration for second-order differential force equations ($F = -kx - cv$), replacing static cubic-bezier curves with genuine inertia and tactile spring recoil.
 
 ---
 
